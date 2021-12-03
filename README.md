@@ -7,7 +7,7 @@ Everybody is welcome and every works will be appreciated
 Next step will be a roadmap and detailed explanation on what wwe want to do.
 
 Discord 
-https://discord.gg/9ANYA5p4
+https://discord.gg/nhEQCVDcCv
 
 FIGMA 
 https://www.figma.com/team_invite/redeem/ZE8XMn6yreNqUMBRrCCvdW
