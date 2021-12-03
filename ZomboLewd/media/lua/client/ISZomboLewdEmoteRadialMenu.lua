@@ -21,12 +21,11 @@ function ISEmoteRadialMenu:fillMenu(submenu)
 		ISEmoteRadialMenu.menu['ZLD'].subMenu['BobZD_Finger_Ass'] = getText('IGUI_Emote_BobZD_Finger_Ass');
 		ISEmoteRadialMenu.icons['BobZD_Finger_Ass'] = getTexture('media/ui/ZLDordinary/BobZD_Finger_Ass.png')
 		ISEmoteRadialMenu.menu['ZLD'].subMenu['BobZD_Finger_Both'] = getText('IGUI_Emote_BobZD_Finger_Both');
-		ISEmoteRadialMenu.icons['BobZD_Finger_Both'] = getTexture('media/ui/ZLDordinary/BobZD_Finger_.Both.png')
-		else
+		ISEmoteRadialMenu.icons['BobZD_Finger_Both'] = getTexture('media/ui/ZLDordinary/BobZD_Finger_Both.png')
+	else
 		ISEmoteRadialMenu.menu['ZLD'].subMenu['BobZD_Stroke_Cock'] = getText('IGUI_Emote_BobZD_Stroke_Cock');
 		ISEmoteRadialMenu.icons['BobZD_Stroke_Cock'] = getTexture('media/ui/ZLDordinary/BobZD_Stroke_Cock.png')
 	end
-local allItems = self.character:getInventory():getItems()
 
 	ISEmoteRadialMenu_fillMenu_old(self, submenu)
 end
