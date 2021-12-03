@@ -4,7 +4,7 @@ local ISEmoteRadialMenu_fillMenu_old = ISEmoteRadialMenu.fillMenu
 local OrdinaryAnim = {
 "BobZD Finger Pussy",
 "BobZD Finger Ass",
-"BobZD Finger Both"
+"BobZD Finger Both",
 "BobZD Stroke Cock",
 }
 
