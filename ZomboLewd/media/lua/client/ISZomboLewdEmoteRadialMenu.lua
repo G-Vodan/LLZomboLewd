@@ -5,7 +5,7 @@ local OrdinaryAnim = {
 "BobZD Finger Pussy",
 "BobZD Finger Ass",
 "BobZD Finger Both"
-"BobZD Stroke Cock,
+"BobZD Stroke Cock",
 }
 
 
