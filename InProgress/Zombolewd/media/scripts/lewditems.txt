@@ -1,0 +1,18 @@
+module Base
+{
+    item ZLDDildo1
+    {
+        Weight	=	0.5,
+        DisappearOnUse	=	FALSE,
+        Type	=	Drainable,
+        DisplayName	=	Lewd Dildo,
+        ActivatedItem	=	TRUE,
+        Icon	=	ZldDildo1,
+        MetalValue = 10,
+        cantBeConsolided = TRUE,
+        StaticModel = ZLDDildo1,
+        primaryAnimMask = HoldingTorchRight,
+        secondaryAnimMask = HoldingTorchLeft,
+        WorldStaticModel = HandTorchGround,
+    }
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<clothingItem>
+	<m_MaleModel>skinned\clothes\M_Ela_Pants2</m_MaleModel>
+	<m_FemaleModel>skinned\clothes\F_Lewd_Minishort2</m_FemaleModel>
+	<m_GUID>7f454416-a77c-41b2-ba16-c9781a267776</m_GUID>
+	<m_Static>false</m_Static>
+	<m_AllowRandomHue>false</m_AllowRandomHue>
+	<m_AllowRandomTint>false</m_AllowRandomTint>
+	<m_AttachBone></m_AttachBone>
+	<m_MasksFolder>media/textures/Clothes/Hat/Masks</m_MasksFolder>	
+	<m_UnderlayMasksFolder>media/textures/Clothes/Jacket/Masks</m_UnderlayMasksFolder>
+	<m_BaseTextures>clothes\Lewd_Minishort2</m_BaseTextures>
+</clothingItem>

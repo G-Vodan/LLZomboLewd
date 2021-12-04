@@ -1,0 +1,17 @@
+module Base
+{
+    item Lewd_Minishort
+    {
+        Type = Clothing,
+        DisplayName = Lewd Minishort,
+        ClothingItem = Lewd_Minishort,
+        BodyLocation = Pants,
+        BloodLocation = Trousers,
+        Icon = Lewd_Minishort,
+        ScratchDefense = 10,
+        Insulation = 0.20,
+        WindResistance = 0.60,
+        WaterResistance = 030,
+        FabricType = Denim,
+    }
+}

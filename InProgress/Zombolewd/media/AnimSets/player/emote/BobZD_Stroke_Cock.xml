@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<animNode x_extends='looped.xml'>
+	<m_Name>BobZD_Stroke_Cock</m_Name>
+	<m_AnimName>BobZD_Stroke_Cock</m_AnimName>
+	<m_BlendTime>0.10</m_BlendTime>
+	<m_Conditions>
+		<m_StringValue>BobZD_Stroke_Cock</m_StringValue>
+	</m_Conditions>
+	<m_SubStateBoneWeights>
+		<boneName>Dummy01</boneName>
+		<weight>1.0</weight>
+	</m_SubStateBoneWeights>
+</animNode>

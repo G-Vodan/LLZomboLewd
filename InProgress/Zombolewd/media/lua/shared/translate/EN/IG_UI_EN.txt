@@ -1,0 +1,7 @@
+IG_UI_EN = {
+	IGUI_Emote_ZLD = "Lewd",
+	IGUI_Emote_BobZD_Finger_Pussy = "Finger Pussy",
+	IGUI_Emote_BobZD_Finger_Ass = "Finger Ass",
+	IGUI_Emote_BobZD_Finger_Both = "Finger Both",
+	IGUI_Emote_BobZD_Stroke_Cock = "Stroke Cock",
+}
