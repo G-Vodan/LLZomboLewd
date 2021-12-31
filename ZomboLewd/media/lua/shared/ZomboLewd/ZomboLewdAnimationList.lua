@@ -6,12 +6,14 @@
 ]]
 
 ZomboLewdAnimationList = {
-	Female = {
-		"BobZD Finger Pussy",
-		"BobZD Finger Ass",
-		"BobZD Finger Both",
-	},
-	Male = {
-		"BobZD Stroke Cock",
+	Solo = {
+		Female = {
+			"BobZD Finger Pussy",
+			"BobZD Finger Ass",
+			"BobZD Finger Both",
+		},
+		Male = {
+			"BobZD Stroke Cock",
+		}
 	}
 }

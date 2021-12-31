@@ -1,3 +1,4 @@
 ZomboLewdConfig = {
-	CommandName = "ZomboLewd"
+	CommandName = "ZomboLewd",
+	IconImageExtension = ".png"
 }

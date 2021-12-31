@@ -4,7 +4,7 @@ local Client = require("ZomboLewd/ZomboLewd")
 function Client.Ticks(tick)
 	if not tick then return end
 
-	if tick >= 100 then
+	if tick >= 10000 then
 		print("Client sending a command...")
 		Client.Callbacks:sendClientCommand("ExampleCommand", "Hi There! Example message!!")
 		Events.OnTick.Remove(Client.Ticks)
