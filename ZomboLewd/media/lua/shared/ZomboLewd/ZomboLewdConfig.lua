@@ -1,0 +1,3 @@
+ZomboLewdConfig = {
+	CommandName = "ZomboLewd"
+}
