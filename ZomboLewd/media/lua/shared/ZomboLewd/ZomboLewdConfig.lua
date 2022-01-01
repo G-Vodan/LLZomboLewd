@@ -1,4 +1,7 @@
 ZomboLewdConfig = {
 	CommandName = "ZomboLewd",
-	IconImageExtension = ".png"
+	IconImageExtension = ".png",
+
+	DefaultSexDuration = 100,
+	EventMarkers = {"Cum", "ZomboLewdAnimationEnd"}
 }

@@ -1,19 +1,18 @@
 --[[ Animation Naming Convention
 
-	Animation file names must match the names below. Underscores in the file name will
-	be converted to spaces automatically.
+	Animation file names must match the names below.
 
 ]]
 
 ZomboLewdAnimationList = {
 	Solo = {
 		Female = {
-			"BobZD Finger Pussy",
-			"BobZD Finger Ass",
-			"BobZD Finger Both",
+			"FingerPussy",
+			"FingerAss",
+			"FingerBoth",
 		},
 		Male = {
-			"BobZD Stroke Cock",
+			"StrokeCock",
 		}
 	}
 }
