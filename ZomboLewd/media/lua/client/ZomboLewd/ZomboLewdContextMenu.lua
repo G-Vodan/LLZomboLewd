@@ -10,6 +10,8 @@ local ISWorldObjectContextMenu = ISWorldObjectContextMenu
 
 local CONTEXT_MENU_MODULES = { --- Add more if there will be more context menu options
 	"ZLMasturbation",
+	"ZLDebugMenu",
+	"ZLAskForSex",
 }
 
 --- Internal function that creates a world context menu for masturbation
@@ -44,6 +46,6 @@ function ContextMenu._createContextMenu(player, context, worldobjects, test)
 end
 
 --- Hook event listeners
-Events.OnFillWorldObjectContextMenu.Add(ContextMenu._createContextMenu)
+Events.OnPreFillWorldObjectContextMenu.Add(ContextMenu._createContextMenu)
 
 return ContextMenu

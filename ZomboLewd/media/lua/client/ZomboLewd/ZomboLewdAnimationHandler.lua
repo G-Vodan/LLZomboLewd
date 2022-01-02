@@ -4,13 +4,13 @@
 
 require "TimedActions/ISBaseTimedAction"
 
-local AnimationHandler = {}
+local AnimationHandler = {EventMarkerModules = {}}
 
 local ZomboLewdConfig = ZomboLewdConfig
 local ISBaseTimedAction = ISBaseTimedAction
 local ISTimedActionQueue = ISTimedActionQueue
 
-local ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
+ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
 
 --- Plays a solo (usually masturbation) animation on this specific character
 -- @param worldObjects is a table of all nearby objects
@@ -18,9 +18,7 @@ local ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
 -- @param string of the animation name indicated in ZomboLewdAnimationList
 -- @param seconds in how long the act should be
 function AnimationHandler.PlaySolo(worldObjects, character, animationName, duration)
-	local animationObject = ISAnimationAction:new(character, animationName, duration)
-	animationObject.type = "Masturbation"
-	ISTimedActionQueue.add(animationObject)
+	ISTimedActionQueue.add(ISAnimationAction:new(character, animationName, duration))
 end
 
 --- Plays duo animations (usually a sex animation between two individuals) between two characters
@@ -33,15 +31,8 @@ end
 function AnimationHandler.PlayDuo(worldObjects, character1, character2, animation1, animation2, duration)
 	--- TBA, need some animations with two people copulating before I can start this
 	--- todo: position both actors at the exact same position then play
-	local animObject1 = ISAnimationAction:new(character1, animation1)
-	animObject1.type = "Sex"
-	animObject1:initialise(duration)
-	ISTimedActionQueue.add(animObject1)
-
-	local animObject2 = ISAnimationAction:new(character2, animation2)
-	animObject2.type = "Sex"
-	animObject2:initialise(duration)
-	ISTimedActionQueue.add(animObject2)
+	ISTimedActionQueue.add(ISAnimationAction:new(character1, animation1, duration))
+	ISTimedActionQueue.add(ISAnimationAction:new(character2, animation2, duration))
 end
 
 function ISAnimationAction:isValid()
@@ -74,6 +65,11 @@ end
 -- @param event string value determining the type of animation
 -- @param parameter string that is the value given from the xml file
 function ISAnimationAction:animEvent(event, parameter)
+	if not AnimationHandler.EventMarkerModules[event] then
+		--- See if we can lazy load it (Another mod might have added more event markers)
+		AnimationHandler.EventMarkerModules[event] = require(string.format("ZomboLewd/AnimationEvents/%s", event))
+	end
+
 	if AnimationHandler.EventMarkerModules[event] then
 		AnimationHandler.EventMarkerModules[event](self, parameter)
 	end
@@ -98,17 +94,5 @@ function ISAnimationAction:new(character, animation, duration)
 	self.__index = self
 	return object
 end
-
---- Runs once for the first time. Initializes all the EventMarker modules
-local function Init()
-	AnimationHandler.EventMarkerModules = {}
-
-	for i = 1, #ZomboLewdConfig.EventMarkers do
-		local name = ZomboLewdConfig.EventMarkers[i]
-		AnimationHandler.EventMarkerModules[name] = require(string.format("ZomboLewd/AnimationEventMarkers/%s", name))
-	end
-end
-
-Init()
 
 return AnimationHandler

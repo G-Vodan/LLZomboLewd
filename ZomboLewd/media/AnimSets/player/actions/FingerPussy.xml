@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animNode>
-	<m_Name>FingerPussy</m_Name>
-	<m_AnimName>BobZD_Finger_Pussy</m_AnimName>
+	<m_Name>FingerPussyFemale</m_Name>
+	<m_AnimName>Bob_Finger_Pussy</m_AnimName>
 	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
 	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
-	<m_SpeedScale>1</m_SpeedScale>
+	<m_SpeedScale>1.05</m_SpeedScale>
 	<m_BlendTime>0.10</m_BlendTime>
 	<m_Conditions>
 		<m_Name>PerformingAction</m_Name>

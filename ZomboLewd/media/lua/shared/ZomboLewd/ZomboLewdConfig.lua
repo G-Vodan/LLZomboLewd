@@ -3,5 +3,5 @@ ZomboLewdConfig = {
 	IconImageExtension = ".png",
 
 	DefaultSexDuration = 100,
-	EventMarkers = {"Cum", "ZomboLewdAnimationEnd"}
+	DebugMode = true,
 }
