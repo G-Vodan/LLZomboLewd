@@ -9,7 +9,7 @@ A community mod for Project Zomboid for LoversLab (+18). Name is temporary, this
 
 ## Installation & Quick Start
 Supported only on Build 41+. Put "Zombolewd" folders into C:\Users\yourusername\Zomboid\mods\
-Activate on mods & Right-click to open Context Menu and select Masturbation
+Activate on mods & Right-click to open Context Menu and select Masturbation. Do not use it on saves you care about.
 
 ## Links
 Discord 
