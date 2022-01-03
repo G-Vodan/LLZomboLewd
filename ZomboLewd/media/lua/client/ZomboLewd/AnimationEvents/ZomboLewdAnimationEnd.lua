@@ -3,5 +3,5 @@ return function(action, parameter)
 	--- Set speed scale to minimum 1.05 if your animation doesn't fire this event.
 	print("Animation Ended") --- This should appear in the output
 	action.ended = true
-	action:forceComplete()
+---	action:forceComplete()
 end

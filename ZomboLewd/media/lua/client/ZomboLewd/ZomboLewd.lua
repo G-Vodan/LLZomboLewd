@@ -1,7 +1,10 @@
 --- Activates the client and their modules
 -- @author QueuedResonance 2022
 
+
+
 local Client = {
+	AnimationUtils = require("ZomboLewd/ZomboLewdAnimationPreload"),
 	Commands = require("ZomboLewd/ZomboLewdCommands"),
 	Callbacks = require("ZomboLewd/ZomboLewdCallbacks"),
 	ContextMenu = require("ZomboLewd/ZomboLewdContextMenu"),
@@ -11,16 +14,19 @@ local Client = {
 
 local function Init()
 	--- Injects the Client data to all modules so they too can access the other modules without going through global
-	for _, module in pairs(Client) do
+	for name, module in pairs(Client) do
 		module.Client = Client
 	end
+
+	Client.AnimationUtils:refreshAnimations()
 
 	--- Create mod options if the user installed the mod
 	--[[
 	if ModOptions and ModOptions.getInstance then
 		ModOptions:getInstance(ZomboLewdConfig)
 		print("CREATED MOD OPTIONS")
-	end]]
+	end
+	]]
 end
 
 Init()

@@ -4,26 +4,11 @@
 
 ]]
 
-ZomboLewdAnimationList = {
-	Solo = {
-		Female = {
-			"FingerPussy",
-			"FingerAss",
-			"FingerBoth",
-		},
-		Male = {
-			"StrokeCock",
-		}
-	},
-
-	--- Intercourse must have the animations in the same order! Or else you will get one actor playing a different animation
-	--- than the second actor.
-	Intercourse = {
-		Female = {
-			"StandingFuckF",
-		},
-		Male = {
-			"StandingFuckM",
-		}
-	}
+ZomboLewdActType = {
+	Masturbation = 1,
+	Intercourse = 2,
+	Threesome = 3, --- Currently not supported
+	Foursome = 4, --- Curently not supported
 }
+
+ZomboLewdAnimationData = {}

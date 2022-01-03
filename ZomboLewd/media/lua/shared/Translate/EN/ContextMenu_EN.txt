@@ -1,12 +1,11 @@
 ContextMenu_EN = {
 	ContextMenu_Masturbate = "Masturbate",
-	ContextMenu_Solo_FingerPussy = "Finger Pussy",
-	ContextMenu_Solo_FingerAss = "Finger Ass",
-	ContextMenu_Solo_FingerBoth = "Finger Both",
-	ContextMenu_Solo_StrokeCock = "Stroke Cock",
+	ContextMenu_Masturbation_FingerPussy = "Finger Pussy",
+	ContextMenu_Masturbation_FingerAss = "Finger Ass",
+	ContextMenu_Masturbation_FingerBoth = "Finger Both",
+	ContextMenu_Masturbation_StrokeCock = "Stroke Cock",
 
 	ContextMenu_Ask_For_Sex = "Ask to have sex",
-	ContextMenu_Ask_For_Sex_Get_Closer = "You need to get closer to ask this.",
 
 	ContextMenu_Debug_Option = "Debug - ZomboLewd",
 	ContextMenu_Debug_Spawn_Comfort_Survivor = "Spawn Comfort Survivor",

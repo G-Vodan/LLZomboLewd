@@ -2,6 +2,6 @@ ZomboLewdConfig = {
 	CommandName = "ZomboLewd",
 	IconImageExtension = ".png",
 
-	DefaultSexDuration = 100,
+	DefaultSexDuration = 300,
 	DebugMode = true,
 }

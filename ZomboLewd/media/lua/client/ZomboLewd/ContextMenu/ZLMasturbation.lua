@@ -5,11 +5,12 @@ local ISContextMenu = ISContextMenu
 local ISToolTip = ISToolTip
 
 local ZomboLewdConfig = ZomboLewdConfig
+local ZomboLewdActType = ZomboLewdActType
 local ZomboLewdAnimationList = ZomboLewdAnimationList
 
 local getText = getText
-local getTexture = getTexture
 local string = string
+local ipairs = ipairs
 
 --- Creates a masturbation context menu
 -- @param ContextMenu object injected from ZomboLewdContextMenu, can access ZomboLewd functionalities with this
@@ -17,7 +18,9 @@ local string = string
 -- @context Context menu object to be filled for
 -- @worldobjects table of world objects nearby the player
 return function(ContextMenu, playerObj, context, worldobjects)
-	local animationList = playerObj:isFemale() and ZomboLewdAnimationList.Solo.Female or ZomboLewdAnimationList.Solo.Male --- No futa support yet
+	local isFemale = playerObj:isFemale()
+	local masturbationList = ContextMenu.Client.Animations[ZomboLewdActType.Masturbation]
+	local animationList = ContextMenu.Client.AnimationUtils:getZLAnimations(masturbationList, isFemale)
 
 	--- Create an option in the right-click menu, and then creates a submenu for that
 	local masturbateOption = context:addOption(getText("ContextMenu_Masturbate"), worldobjects)
@@ -27,14 +30,16 @@ return function(ContextMenu, playerObj, context, worldobjects)
 	--- Start creating our submenus based on the player's gender
 	for i = 1, #animationList do
 		local anim = animationList[i]
-		local text, textureID = getText(string.format("ContextMenu_Solo_%s", anim)), string.format("media/ui/ZomboLewd/%s%s", anim, ZomboLewdConfig.IconImageExtension)
+		local key = anim.Key
+		local data = anim.Data
+		local contextName = isFemale and data.Animations.Female or data.Animations.Male
+		local text = getText(string.format("ContextMenu_Masturbation_%s", contextName))
 		
 		if text then
 			--- Create a new tooltip when the player hovers over the sub option
 			local toolTip = ISToolTip:new()
 			toolTip.description = "" --- Make tooltip description in the future
 			toolTip:setName(text)
-			toolTip:setTexture(textureID)
 			toolTip:initialise()
 			toolTip:setVisible(false)
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animNode>
 	<m_Name>	NAME_OF_ANIMATION (SHOULD BE SAME IN ANIMATIONLIST)	</m_Name>
-	<m_AnimName>	ANIMATION_FILE_NAME_ENDING_IN_X	</m_AnimName>
+	<m_AnimName>	ANIMATION_FILE_NAME_ENDING_IN_X_OR_FBX	</m_AnimName>
 	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
 	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
 	<m_SpeedScale>1.05</m_SpeedScale>

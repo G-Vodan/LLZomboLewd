@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animNode>
-	<m_Name>StrokeCockMale</m_Name>
+	<m_Name>StrokeCock</m_Name>
 	<m_AnimName>Bob_Stroke_Cock</m_AnimName>
 	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
 	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>

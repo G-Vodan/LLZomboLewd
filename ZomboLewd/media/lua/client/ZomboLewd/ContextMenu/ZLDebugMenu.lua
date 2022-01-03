@@ -4,10 +4,10 @@
 local ISContextMenu = ISContextMenu
 local ISToolTip = ISToolTip
 
+local SurvivorFactory = SurvivorFactory
 local ZomboLewdConfig = ZomboLewdConfig
 
 local getText = getText
-local getTexture = getTexture
 local string = string
 
 --- Spawns a comfort survivor at the position of the player
@@ -24,7 +24,7 @@ local function spawnComfortSurvivor(worldobjects, playerObj)
 	survivorModel:setNPC(true)
 	survivorModel:dressInRandomOutfit()
 	survivorModel:resetModelNextFrame()
-	survivorModel:getModData().isHostile = false
+	survivorModel:setDir(playerObj:getDir())
 end
 
 --- Creates a debug context menu
