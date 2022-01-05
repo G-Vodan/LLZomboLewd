@@ -174,6 +174,16 @@ local function OnGrabImmunity(tick)
 			if data.Tick >= cooldown then
 				isoPlayersInAct[key] = nil
 			end
+		else
+			if not data.TimeOut then
+				data.TimeOut = 0
+			end
+
+			data.TimeOut = data.TimeOut + 1
+
+			if data.TimeOut > 1000 then
+				isoPlayersInAct[key] = nil
+			end
 		end
 	end
 end
