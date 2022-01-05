@@ -37,8 +37,10 @@ local function checkForClothingDamage(zombie, target)
 	if wornItems then
 		local bodyLocationGroup = wornItems:getBodyLocationGroup()
 
-		for i=1,wornItems:size() do
-			local wornItem = wornItems:get(i-1)
+		for i = 1, wornItems:size() do
+			print(wornItems:get(i - 1))
+
+			local wornItem = wornItems:get(i - 1)
 
 			if wornItem then
 				local item = wornItem:getItem()
@@ -104,6 +106,7 @@ local function attemptToDefeatTarget(zombie, target)
 		local function cleanup()
 			isoPlayersInAct[target].Ended = true
 
+			dummy:setX(dummy:getX() + 9999999)
 			dummy:setInvisible(true)
 			dummy:setGhostMode(true)
 			dummy:removeFromWorld()
@@ -116,6 +119,10 @@ local function attemptToDefeatTarget(zombie, target)
 		end
 
 		ZomboLewd.AnimationHandler.PlayDuo(nil, dummy, target, chosenAnimation, true, true, {
+			WaitToStart = function()
+				zombie:setInvisible(true)
+				dummy:setInvisible(false)
+			end,
 			Start = function()
 				zombie:setInvisible(true)
 				dummy:setInvisible(false)
