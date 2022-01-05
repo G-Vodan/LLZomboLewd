@@ -122,6 +122,12 @@ function ISAnimationAction:waitToStart()
 		end
 	end
 
+	if self.callbacks then
+		if self.callbacks.WaitToStart then
+			self.callbacks.WaitToStart()
+		end
+	end
+
 	self.waitingStarted = true
 
 	return continueWaiting
