@@ -1,0 +1,7 @@
+name=ZomboLewd Defeat
+poster=poster.png
+id=ZombolewdDefeat
+description=Enables zombie intercourse using Project ZomboLewd as a dependency
+url=
+versionMin=41.1
+require=ZomboLewdFramework

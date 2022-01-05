@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animNode>
-	<m_Name>StandingFuckM</m_Name>
-	<m_AnimName>Bob_Stand_Fucked_M</m_AnimName>
+	<m_Name>SitFuckM</m_Name>
+	<m_AnimName>Bob_Sit_Fuck_M</m_AnimName>
 	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
 	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
 	<m_SpeedScale>1.05</m_SpeedScale>
@@ -9,11 +9,16 @@
 	<m_Conditions>
 		<m_Name>PerformingAction</m_Name>
 		<m_Type>STRING</m_Type>
-		<m_StringValue>StandingFuckM</m_StringValue>
+		<m_StringValue>SitFuckM</m_StringValue>
 	</m_Conditions>
 	<m_Events>
 		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.1</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.15</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_Events>
@@ -23,7 +28,17 @@
 	</m_Events>
 	<m_Events>
 		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.25</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.3</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.35</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_Events>
@@ -33,7 +48,17 @@
 	</m_Events>
 	<m_Events>
 		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.45</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.5</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.55</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_Events>
@@ -43,7 +68,17 @@
 	</m_Events>
 	<m_Events>
 		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.65</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.7</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.75</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_Events>
@@ -53,7 +88,17 @@
 	</m_Events>
 	<m_Events>
 		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.85</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.9</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.95</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_SubStateBoneWeights>

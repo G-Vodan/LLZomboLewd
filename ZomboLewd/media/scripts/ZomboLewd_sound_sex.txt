@@ -1,0 +1,99 @@
+module Base
+{
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/000.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/001.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/002.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/003.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/004.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/005.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/006.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/007.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/008.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/009.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/010.wav,
+		}
+	}
+	sound ZomboLewdSlap
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Sex/011.wav,
+		}
+	}
+}

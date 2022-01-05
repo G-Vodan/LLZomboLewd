@@ -1,39 +1,48 @@
+-- @author QueuedResonance 2022
+
 local ZombieHandler = {}
 
---[[
-local ZomboLewdAnimationList = ZomboLewdAnimationList
+local SurvivorFactory = SurvivorFactory
+local IsoPlayer = IsoPlayer
 
-function ZombieHandler.OnHitZombie(zombie, character, bodyPartType, handWeapon)
-	local isMainHeroFemale = character:isFemale()
-	local isZombieFemale = zombie:isFemale()
+local instanceof = instanceof
 
-	--- No lesbian or gay zombie sex at the moment, sorry!
-	if isMainHeroFemale == isZombieFemale then return end
+--- Zombies are unable to be played animations directly, so we need to spawn a dummy survivor to act like the zombie
+-- @param IsoZombie of the zombie we want to convert
+function ZombieHandler:convertZombieToSurvivor(zombie)
+	if not instanceof(zombie, "IsoZombie") then return end
 
-	local heroAnimList = isMainHeroFemale and ZomboLewdAnimationList.Intercourse.Female or ZomboLewdAnimationList.Intercourse.Male
-	local zombAnimList = isZombieFemale and ZomboLewdAnimationList.Intercourse.Female or ZomboLewdAnimationList.Intercourse.Male
-
-	--- Choose random animation as a test
-	local index = ZombRand(1, #heroAnimList)
-	local chosenAnimation = heroAnimList[index]
-	local zombieAnimation = zombAnimList[index]
-
-	ZombieHandler.Client.AnimationHandler.PlayDuo({}, character, zombie, chosenAnimation, zombieAnimation)
-end
-
-function ZombieHandler.OnWeaponHitCharacter(wielder, character, handWeapon, damage)
-	-- Your code here
-	print("I GOT HIT")
-end
-
-local function OnZombieUpdate(zombie)
-	-- Your code here
+	--- Disable actual zombie AI, make them invincible, and set them to invisible
 	zombie:setUseless(true)
---	ISTimedActionQueue.add(ISAnimationAction:new(zombie, "StandingFuckF", 600))
+	zombie:setInvincible(true)
+	zombie:setNoDamage(true)
+
+	local desc = SurvivorFactory.CreateSurvivor(nil, zombie:isFemale())
+	desc:dressInNamedOutfit(zombie:getOutfitName())
+
+	local survivorModel = IsoPlayer.new(getWorld():getCell(), desc, zombie:getX(), zombie:getY(), zombie:getZ())
+	survivorModel:getInventory():emptyIt()
+	survivorModel:setSceneCulled(false)
+	survivorModel:setBlockMovement(true)
+	survivorModel:setNPC(true)
+	survivorModel:setDir(zombie:getDir())
+
+	--- Dress the dummy survivor with the same stuff as the zombie
+	survivorModel:getVisual():setHairModel(zombie:getVisual():getHairModel())
+	survivorModel:getVisual():setHairColor(zombie:getVisual():getHairColor())
+	survivorModel:getVisual():setSkinTextureIndex(zombie:getVisual():getSkinTextureIndex())
+
+	--- Model settings
+	survivorModel:resetModelNextFrame()
+	survivorModel:setInvincible(true)
+	survivorModel:setGhostMode(true)
+	survivorModel:setInvisible(true)
+
+	for _ = 0, 15 do
+        survivorModel:addBlood(nil, false, true, false);
+    end
+
+	return survivorModel
 end
 
-Events.OnHitZombie.Add(ZombieHandler.OnHitZombie)
-Events.OnWeaponHitCharacter.Add(ZombieHandler.OnWeaponHitCharacter)
-Events.OnZombieUpdate.Add(OnZombieUpdate)
-]]
 return ZombieHandler

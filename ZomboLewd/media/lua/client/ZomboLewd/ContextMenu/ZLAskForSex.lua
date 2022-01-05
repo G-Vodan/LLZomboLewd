@@ -33,6 +33,8 @@ end
 -- @context Context menu object to be filled for
 -- @worldobjects table of world objects nearby the player
 return function(ContextMenu, playerObj, context, worldobjects)
+	if not ZomboLewdConfig.ModOptions.options.box1 then return end
+
 	local player = playerObj:getPlayerNum()
 
 	--- Activate native fetch function to determine if our mouse selected a square containing an IsoPlayer
@@ -45,5 +47,10 @@ return function(ContextMenu, playerObj, context, worldobjects)
 	if clickedPlayer then
 		--- Create an option in the right-click menu, and then creates a submenu for that
 		context:addOption(getText("ContextMenu_Ask_For_Sex"), worldobjects, onAskForSex, ContextMenu, playerObj, clickedPlayer)
+
+		--- Placeholder, but can't ask for sex if they are the same gender
+		if playerObj:isFemale() == clickedPlayer:isFemale() then
+			context:removeLastOption()
+		end
 	end
 end

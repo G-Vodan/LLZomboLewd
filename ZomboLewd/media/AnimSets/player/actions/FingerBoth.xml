@@ -11,11 +11,6 @@
 		<m_Type>STRING</m_Type>
 		<m_StringValue>FingerBoth</m_StringValue>
 	</m_Conditions>
-	<m_Events>
-		<m_EventName>ZomboLewdAnimationEnd</m_EventName>
-		<m_Time>End</m_Time>
-		<m_ParameterValue></m_ParameterValue>
-	</m_Events>
 	<m_SubStateBoneWeights>
 		<boneName>Dummy01</boneName>
 		<weight>1.0</weight>

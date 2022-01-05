@@ -1,8 +1,6 @@
 --- Activates the client and their modules
 -- @author QueuedResonance 2022
 
-
-
 local Client = {
 	AnimationUtils = require("ZomboLewd/ZomboLewdAnimationPreload"),
 	Commands = require("ZomboLewd/ZomboLewdCommands"),
