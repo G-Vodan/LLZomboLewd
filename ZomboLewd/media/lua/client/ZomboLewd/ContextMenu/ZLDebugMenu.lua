@@ -1,10 +1,13 @@
 --- Handles debugging stuff for ZomboLewd
 -- @author QueuedResonance 2022
 
+local ISTimedActionQueue = ISTimedActionQueue
 local ISContextMenu = ISContextMenu
 local ISToolTip = ISToolTip
 
 local SurvivorFactory = SurvivorFactory
+local IsoPlayer = IsoPlayer
+
 local ZomboLewdConfig = ZomboLewdConfig
 
 local getText = getText
@@ -23,8 +26,8 @@ local function spawnComfortSurvivor(worldobjects, playerObj)
 	survivorModel:setBlockMovement(true)
 	survivorModel:setNPC(true)
 	survivorModel:dressInRandomOutfit()
-	survivorModel:resetModelNextFrame()
 	survivorModel:setDir(playerObj:getDir())
+	survivorModel:resetModelNextFrame()
 end
 
 --- Creates a debug context menu
@@ -33,7 +36,7 @@ end
 -- @context Context menu object to be filled for
 -- @worldobjects table of world objects nearby the player
 return function(ContextMenu, playerObj, context, worldobjects)
-	if not ZomboLewdConfig.DebugMode then return end
+	if not ZomboLewdConfig.ModOptions.options.box2 then return end
 
 	--- Create an option in the right-click menu, and then creates a submenu for that
 	local debugOption = context:addOption(getText("ContextMenu_Debug_Option"), worldobjects)

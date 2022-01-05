@@ -12,8 +12,48 @@
 		<m_StringValue>StandingFuckM</m_StringValue>
 	</m_Conditions>
 	<m_Events>
-		<m_EventName>ZomboLewdAnimationEnd</m_EventName>
-		<m_Time>End</m_Time>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.1</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.2</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.3</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.4</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.5</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.6</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.7</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.8</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
+		<m_EventName>Slap</m_EventName>
+		<m_TimePc>0.9</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_SubStateBoneWeights>

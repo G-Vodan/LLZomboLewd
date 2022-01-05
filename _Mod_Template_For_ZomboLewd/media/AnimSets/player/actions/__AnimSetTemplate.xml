@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animNode>
+	<m_Name>YOUR_ANIMATION     (SHOULD BE SAME AS lua/shared/ZomboLewd/AnimationConfigs/YOUR_ANIMATION.lua)</m_Name>
+	<m_AnimName>	ANIMATION_FILE_NAME_ENDING_IN_X_OR_FBX (LOCATED IN anims_X/actorName/YOUR_ANIMATION.x)	</m_AnimName>
+	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
+	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
+	<m_SpeedScale>1.05</m_SpeedScale>
+	<m_BlendTime>0.10</m_BlendTime>
+	<m_Conditions>
+		<m_Name>PerformingAction</m_Name>
+		<m_Type>STRING</m_Type>
+		<m_StringValue>YOUR_ANIMATION      (SHOULD BE SAME AS lua/shared/ZomboLewd/AnimationConfigs/YOUR_ANIMATION.lua)</m_StringValue>
+	</m_Conditions>
+	<m_SubStateBoneWeights>
+		<boneName>Dummy01</boneName>
+		<weight>1.0</weight>
+	</m_SubStateBoneWeights>
+</animNode>

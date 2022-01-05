@@ -5,11 +5,10 @@
 </div>
 
 # LLZomboLewd
-A community mod for Project Zomboid for LoversLab (+18). Name is temporary, this Github purpose is to create a community of Project Zomboid modders from LoversLab. Everybody is welcome and every works will be appreciated. The actual release is a very early release that only contains basic masturbation animations.
+A community mod for Project Zomboid for LoversLab (+18). Name is temporary, this Github purpose is to create a community of Project Zomboid modders from LoversLab. Everybody is welcome and every works will be appreciated. The actual release is a very early ALPHA, please be mindful, expect many glitches.
 
 ## Installation & Quick Start
-Supported only on Build 41+. Put "Zombolewd" folders into C:\Users\yourusername\Zomboid\mods\
-Activate on mods & Right-click to open Context Menu and select Masturbation. Do not use it on saves you care about.
+https://github.com/G-Vodan/LLZomboLewd/wiki
 
 ## Links
 Discord 

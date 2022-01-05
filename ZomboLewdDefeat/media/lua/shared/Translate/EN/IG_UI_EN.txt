@@ -1,0 +1,9 @@
+IGUI_EN = {
+	IGUI_Cooldown_Grabs = "Cooldown between getting grabbed",
+	IGUI_Minimum_Scratch = "Minimum Scratch Resistance to get grabbed",
+
+	IGUI_Can_Damage_Belt = "Enable Belt Damage",
+	IGUI_Can_Damage_Pants = "Enable Pants Damage",
+	IGUI_Can_Damage_Tshirt = "Enable T-Shirt Damage",
+	IGUI_Can_Damage_Shoes = "Enable Shoes Damage",
+}
