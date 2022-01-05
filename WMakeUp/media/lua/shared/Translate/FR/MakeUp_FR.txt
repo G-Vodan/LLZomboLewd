@@ -1,0 +1,10 @@
+MakeUp_FR = {
+	MakeUpType_BellyFreeUse = "Free Use",
+	MakeUpType_ForeHeadSlut = "Slut",
+	MakeUpType_FaceWhore = "Whore",
+	MakeUpType_BreastSlut ="Slut",
+	MakeUpCategory_Belly = "Ventre",
+	MakeUpCategory_ForeHead = "Front",
+	MakeUpCategory_Breast = "Poitrine",
+	MakeUpCategory_Face = "Face",
+}

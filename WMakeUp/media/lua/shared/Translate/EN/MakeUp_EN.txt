@@ -1,0 +1,18 @@
+MakeUp_EN = {
+	MakeUpType_BellyFreeUse = "Free Use",
+	MakeUpType_ForeHeadSlut = "Slut",
+	MakeUpType_FaceWhore = "Whore",
+	MakeUpType_BreastSlut ="Slut",
+	MakeUpType_EyesSmeared ="Smeared",
+	MakeUpType_EyesEyeLiner ="EyeLiner",
+	MakeUpType_FaceBlush ="Blush",
+	MakeUpType_FaceFreckles ="Freckles",
+	MakeUpType_FaceEyeBrows ="Eyebrows",
+	MakeUpType_LipsSmeared ="Smeared",
+	MakeUpType_PussyArrow ="Arrow",
+	MakeUpCategory_Belly = "Belly",
+	MakeUpCategory_Belly = "Pussy",
+	MakeUpCategory_ForeHead = "ForeHead",
+	MakeUpCategory_Breast = "Breast",
+	MakeUpCategory_Face = "Face",
+}
