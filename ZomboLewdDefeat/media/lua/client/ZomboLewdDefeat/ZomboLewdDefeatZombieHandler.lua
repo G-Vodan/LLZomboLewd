@@ -88,6 +88,7 @@ local function attemptToDefeatTarget(zombie, target)
 	--- Only straight sex for now
 	if isMainHeroFemale == zombieIsFemale then return end
 	if target:getModData().zomboLewdSexScene then return end
+	if target:getModData().dontDefeat then return end
 
 	if not isoPlayersInAct[target] and zombie:DistTo(target) < 1 then
 		isoPlayersInAct[target] = {Ended = false, Tick = 0}
@@ -96,6 +97,8 @@ local function attemptToDefeatTarget(zombie, target)
 
 		--- Time to grape em
 		local dummy = ZomboLewd.ZombieHandler:convertZombieToSurvivor(zombie)
+		dummy:getModData().dontDefeat = true
+
 		local intercourseList = ZomboLewd.Animations[ZomboLewdActType.Intercourse]
 		local animationList = ZomboLewd.AnimationUtils:getZLAnimations(intercourseList, isMainHeroFemale)
 
@@ -121,6 +124,7 @@ local function attemptToDefeatTarget(zombie, target)
 		ZomboLewd.AnimationHandler.PlayDuo(nil, dummy, target, chosenAnimation, true, true, {
 			WaitToStart = function()
 				zombie:setInvisible(true)
+				dummy:setGhostMode(true)
 				dummy:setInvisible(false)
 			end,
 			Start = function()
