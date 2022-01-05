@@ -159,12 +159,6 @@ function ISAnimationAction:perform()
 		self.otherAction:forceComplete()
 	end
 
-	if self.callbacks then
-		if self.callbacks.Perform then
-			self.callbacks.Perform()
-		end
-	end
-
 	if self.originalPosition then
 		self.character:setX(self.originalPosition.x)
 		self.character:setY(self.originalPosition.y)
@@ -172,6 +166,12 @@ function ISAnimationAction:perform()
 	end
 
 	self.character:getModData().zomboLewdSexScene = nil
+
+	if self.callbacks then
+		if self.callbacks.Perform then
+			self.callbacks.Perform()
+		end
+	end
 
 	ISBaseTimedAction.perform(self)
 end
@@ -182,13 +182,13 @@ function ISAnimationAction:stop()
 		self.otherAction:forceStop()
 	end
 
+	self.character:getModData().zomboLewdSexScene = nil
+
 	if self.callbacks then
 		if self.callbacks.Stop then
 			self.callbacks.Stop()
 		end
 	end
-
-	self.character:getModData().zomboLewdSexScene = nil
 
 	ISBaseTimedAction.stop(self)
 end

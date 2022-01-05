@@ -109,11 +109,21 @@ local function attemptToDefeatTarget(zombie, target)
 		local function cleanup()
 			isoPlayersInAct[target].Ended = true
 
+			--- Temporarily set 'em far away
 			dummy:setX(dummy:getX() + 9999999)
-			dummy:setInvisible(true)
-			dummy:setGhostMode(true)
-			dummy:removeFromWorld()
-			dummy:removeFromSquare()
+
+			local function _deleteDummy(tick)
+				if tick >= 25 then
+					dummy:setInvincible(false)
+					dummy:setInvisible(false)
+					dummy:setGhostMode(false)
+					dummy:removeFromWorld()
+					dummy:removeFromSquare()
+					Events.OnTick.Remove(_deleteDummy)
+				end
+			end
+
+			Events.OnTick.Add(_deleteDummy)
 
 			zombie:setUseless(false)
 			zombie:setInvincible(false)
@@ -135,6 +145,7 @@ local function attemptToDefeatTarget(zombie, target)
 				cleanup()
 			end,
 			Perform = function()
+				print("LUUUL")
 				cleanup()
 			end
 		})
