@@ -1,0 +1,35 @@
+module Base
+{
+	sound ZomboLewdOral
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Oral/001.wav,
+		}
+	}
+	sound ZomboLewdOral
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Oral/002.wav,
+		}
+	}
+	sound ZomboLewdOral
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Oral/003.wav,
+		}
+	}
+	sound ZomboLewdOral
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Oral/004.wav,
+		}
+	}
+}

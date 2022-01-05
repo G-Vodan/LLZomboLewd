@@ -1,0 +1,13 @@
+ContextMenu_EN = {
+	ContextMenu_Masturbate = "Masturbate",
+	ContextMenu_Masturbation_FingerPussy = "Finger Pussy",
+	ContextMenu_Masturbation_FingerAss = "Finger Ass",
+	ContextMenu_Masturbation_FingerBoth = "Finger Both",
+	ContextMenu_Masturbation_StrokeCock = "Stroke Cock",
+
+	ContextMenu_Ask_For_Sex = "Ask to have sex",
+
+	ContextMenu_Debug_Option = "Debug - ZomboLewd",
+	ContextMenu_Debug_Spawn_Comfort_Survivor = "Spawn Comfort Survivor",
+	ContextMenu_Debug_Spawn_Comfort_Survivor_Description = "Spawns a sex hungry survivor next to you. Always the opposite gender of you.",
+}

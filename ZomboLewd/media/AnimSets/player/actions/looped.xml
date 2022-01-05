@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<animNode>
+	<m_Name>looped</m_Name>
+	<m_AnimName>Bob_EmoteSurrender</m_AnimName>
+	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
+	<m_Looped>true</m_Looped>
+	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
+	<m_EarlyTransitionOut>true</m_EarlyTransitionOut>
+	<m_SpeedScale>0.80</m_SpeedScale>
+	<m_BlendTime>0.50</m_BlendTime>
+	<m_Conditions>
+		<m_Name>emote</m_Name>
+		<m_Type>STRING</m_Type>
+		<m_StringValue>default</m_StringValue>
+	</m_Conditions>
+	<m_Events>
+		<m_EventName>EmoteLooped</m_EventName>
+		<m_Time>End</m_Time>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+</animNode>

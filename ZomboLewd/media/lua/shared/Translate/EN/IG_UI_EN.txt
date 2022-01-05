@@ -1,0 +1,4 @@
+IGUI_EN = {
+	IGUI_Ask_Survivor_Sex = "Can Ask Survivors for Sex",
+	IGUI_Debug_Mode = "Toggle Debug Mode",
+}

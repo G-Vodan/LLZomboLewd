@@ -1,0 +1,82 @@
+module Base
+{
+
+    item MakeUp_BellyFreeUse
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_BellyFreeUse,
+        BodyLocation = MakeUp_Belly,
+    }
+    item MakeUp_ForeHeadSlut
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_ForeHeadSlut,
+        BodyLocation = MakeUp_ForeHead,
+    }
+    item MakeUp_EyesSmeared
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_EyesSmeared,
+        BodyLocation = MakeUp_Eyes,
+    }
+    item MakeUp_EyesEyeliner
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_EyesEyeliner,
+        BodyLocation = MakeUp_Eyes,
+    }
+    item MakeUp_FaceBlush
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_FaceBlush,
+        BodyLocation = MakeUp_Face,
+    }
+    item MakeUp_FaceEyeBrows
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_FaceEyeBrows,
+        BodyLocation = MakeUp_Face,
+    }
+    item MakeUp_LipsSmeared
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_LipsSmeared,
+        BodyLocation = MakeUp_Lips,
+    }
+    item MakeUp_FaceFreckles
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_FaceFreckles,
+        BodyLocation = MakeUp_Face,
+    }
+    item MakeUp_PussyArrow
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_PussyArrow,
+        BodyLocation = MakeUp_Pussy,
+    }
+    item MakeUp_FaceWhore
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        DisplayName = MakeUp_FaceWhore,
+        ClothingItem = MakeUp_FaceWhore,
+        BodyLocation = MakeUp_Face,
+    }
+    item MakeUp_BreastSlut
+    {
+        DisplayCategory = MakeUp,
+        Type = Clothing,
+        ClothingItem = MakeUp_BreastSlut,
+        BodyLocation = MakeUp_Breast,
+    }
+}
