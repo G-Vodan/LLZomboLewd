@@ -19,8 +19,8 @@ ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
 -- @param worldObjects is a table of all nearby objects
 -- @param IsoPlayer character object
 -- @param animationdata
--- @param seconds in how long the act should be
-function AnimationHandler.PlaySolo(worldObjects, character, animationData)
+-- @param callbacks - table of functions with WaitToStart, Start, Stop, and Perform
+function AnimationHandler.PlaySolo(worldObjects, character, animationData, callbacks)
 	if not character then return end
 	if not instanceof(character, "IsoPlayer") then return end
 
@@ -29,11 +29,10 @@ function AnimationHandler.PlaySolo(worldObjects, character, animationData)
 	local duration = data.TimedDuration
 	local animation = isFemale and data.Animations.Female or data.Animations.Male
 	local action = ISAnimationAction:new(character, animation, duration)
+	action.callbacks = callbacks
 
 	ISTimedActionQueue.clear(character)
 	ISTimedActionQueue.add(action)
-
-	return action
 end
 
 --- Plays duo animations (usually a sex animation between two individuals) between two characters
@@ -41,8 +40,9 @@ end
 -- @param IsoPlayer of the first character
 -- @param IsoPlayer of the second character
 -- @param animationdata for which the actors will be playing
--- @param seconds in how long the act should be
 -- @param boolean, prevents cancellation of this action if set to true (for example, non-consensual actions)
+-- @param boolean, disables the initial walk of the animation (both actors will teleport to eachother instantly for the scene)
+-- @param callbacks - table of functions with WaitToStart, Start, Stop, and Perform
 function AnimationHandler.PlayDuo(worldObjects, character1, character2, animationData, disableCancel, disableWalk, callbacks)
 	disableWalk = disableWalk or false
 

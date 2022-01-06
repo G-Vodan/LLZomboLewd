@@ -145,7 +145,6 @@ local function attemptToDefeatTarget(zombie, target)
 				cleanup()
 			end,
 			Perform = function()
-				print("LUUUL")
 				cleanup()
 			end
 		})
