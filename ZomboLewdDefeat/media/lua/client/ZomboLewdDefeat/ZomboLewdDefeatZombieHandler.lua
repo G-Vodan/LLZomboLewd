@@ -38,8 +38,6 @@ local function checkForClothingDamage(zombie, target)
 		local bodyLocationGroup = wornItems:getBodyLocationGroup()
 
 		for i = 1, wornItems:size() do
-			print(wornItems:get(i - 1))
-
 			local wornItem = wornItems:get(i - 1)
 
 			if wornItem then
@@ -91,7 +89,7 @@ local function attemptToDefeatTarget(zombie, target)
 	if target:getModData().dontDefeat then return end
 
 	if not isoPlayersInAct[target] and zombie:DistTo(target) < 1 then
-		isoPlayersInAct[target] = {Ended = false, Tick = 0}
+		isoPlayersInAct[target] = {Ended = false, Tick = 0, TimeOut = 0}
 
 		if not checkForClothingDamage(zombie, target) then return end
 
@@ -110,10 +108,11 @@ local function attemptToDefeatTarget(zombie, target)
 			isoPlayersInAct[target].Ended = true
 
 			--- Temporarily set 'em far away
-			dummy:setX(dummy:getX() + 9999999)
+			dummy:setX(dummy:getX() + 999999)
 
 			local function _deleteDummy(tick)
 				if tick >= 25 then
+					ISTimedActionQueue.clear(target)
 					dummy:setInvincible(false)
 					dummy:setInvisible(false)
 					dummy:setGhostMode(false)
@@ -132,22 +131,39 @@ local function attemptToDefeatTarget(zombie, target)
 		end
 
 		ZomboLewd.AnimationHandler.PlayDuo(nil, dummy, target, chosenAnimation, true, true, {
-			WaitToStart = function()
+			Update = function(action)
+				isoPlayersInAct[target].TimeOut = 0
+			end,
+			WaitToStart = function(action)
 				zombie:setInvisible(true)
 				dummy:setGhostMode(true)
 				dummy:setInvisible(false)
+
+				--- Fix bugged character if the dummy zombie despawns
+				if not action.TimeOut then
+					action.TimeOut = 0
+				end
+
+				action.TimeOut = action.TimeOut + 1
+
+				if action.TimeOut > 250 then
+					action:forceStop()
+				end
 			end,
-			Start = function()
+			Start = function(action)
 				zombie:setInvisible(true)
 				dummy:setInvisible(false)
+				isoPlayersInAct[dummy] = nil
 			end,
-			Stop = function()
+			Stop = function(action)
 				cleanup()
 			end,
-			Perform = function()
+			Perform = function(action)
 				cleanup()
 			end
 		})
+
+		isoPlayersInAct[dummy] = {Dummy = dummy, TimeOut = 0, Callback = cleanup}
 	end
 end
 
@@ -167,21 +183,27 @@ local function OnGrabImmunity(tick)
 	local cooldown = (ZomboLewdDefeatConfig.ModOptions.options.dropdown1 * 200) - 200
 
 	for key, data in pairs(isoPlayersInAct) do
-		if data.Ended then
-			data.Tick = data.Tick + 1
+		if data.Dummy then
+			--- Delete glitched animation dummies
+			data.TimeOut = data.TimeOut + 1
 
-			if data.Tick >= cooldown then
+			if data.TimeOut > 100 then
+				data.Callback(data.Dummy)
 				isoPlayersInAct[key] = nil
 			end
 		else
-			if not data.TimeOut then
-				data.TimeOut = 0
-			end
+			if data.Ended then
+				data.Tick = data.Tick + 1
 
-			data.TimeOut = data.TimeOut + 1
+				if data.Tick >= cooldown then
+					isoPlayersInAct[key] = nil
+				end
+			else
+				data.TimeOut = data.TimeOut + 1
 
-			if data.TimeOut > 1000 then
-				isoPlayersInAct[key] = nil
+				if data.TimeOut > 1000 then
+					isoPlayersInAct[key] = nil
+				end
 			end
 		end
 	end

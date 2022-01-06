@@ -12,6 +12,7 @@ local ISBaseTimedAction = ISBaseTimedAction
 local ISTimedActionQueue = ISTimedActionQueue
 
 local luautils = luautils
+local ignoredKeyframeNames = {}
 
 ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
 
@@ -19,7 +20,7 @@ ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
 -- @param worldObjects is a table of all nearby objects
 -- @param IsoPlayer character object
 -- @param animationdata
--- @param callbacks - table of functions with WaitToStart, Start, Stop, and Perform
+-- @param callbacks - table of functions with WaitToStart, Start, Stop, Update and Perform
 function AnimationHandler.PlaySolo(worldObjects, character, animationData, callbacks)
 	if not character then return end
 	if not instanceof(character, "IsoPlayer") then return end
@@ -42,7 +43,7 @@ end
 -- @param animationdata for which the actors will be playing
 -- @param boolean, prevents cancellation of this action if set to true (for example, non-consensual actions)
 -- @param boolean, disables the initial walk of the animation (both actors will teleport to eachother instantly for the scene)
--- @param callbacks - table of functions with WaitToStart, Start, Stop, and Perform
+-- @param callbacks - table of functions with WaitToStart, Start, Stop, Update, and Perform
 function AnimationHandler.PlayDuo(worldObjects, character1, character2, animationData, disableCancel, disableWalk, callbacks)
 	disableWalk = disableWalk or false
 
@@ -124,7 +125,7 @@ function ISAnimationAction:waitToStart()
 
 	if self.callbacks then
 		if self.callbacks.WaitToStart then
-			self.callbacks.WaitToStart()
+			self.callbacks.WaitToStart(self)
 		end
 	end
 
@@ -145,11 +146,21 @@ function ISAnimationAction:update()
 		self.character:setZ(self.position.z)
 	end
 
+	if self.callbacks then
+		if self.callbacks.Update then
+			self.callbacks.Update(self)
+		end
+	end
+
 	--- Check if the other actor somehow got a bugged action
 	if self.otherAction then
 		if not ISTimedActionQueue.hasAction(self.otherAction) then
 			self:forceStop()
 		end
+	end
+
+	if not self.character:getCharacterActions():contains(self.action) then
+		self:forceStop()
 	end
 end
 
@@ -169,7 +180,7 @@ function ISAnimationAction:perform()
 
 	if self.callbacks then
 		if self.callbacks.Perform then
-			self.callbacks.Perform()
+			self.callbacks.Perform(self)
 		end
 	end
 
@@ -186,7 +197,7 @@ function ISAnimationAction:stop()
 
 	if self.callbacks then
 		if self.callbacks.Stop then
-			self.callbacks.Stop()
+			self.callbacks.Stop(self)
 		end
 	end
 
@@ -197,7 +208,7 @@ function ISAnimationAction:start()
 	--- What happens when the animation starts?
 	if self.callbacks then
 		if self.callbacks.Start then
-			self.callbacks.Start()
+			self.callbacks.Start(self)
 		end
 	end
 
@@ -213,13 +224,17 @@ end
 -- @param event string value determining the type of animation
 -- @param parameter string that is the value given from the xml file
 function ISAnimationAction:animEvent(event, parameter)
-	if not AnimationHandler.EventMarkerModules[event] then
+	if not AnimationHandler.EventMarkerModules[event] and not ignoredKeyframeNames[event] then
 		--- See if we can lazy load it (Another mod might have added more event markers)
 		AnimationHandler.EventMarkerModules[event] = require(string.format("ZomboLewd/AnimationEvents/%s", event))
 	end
 
 	if AnimationHandler.EventMarkerModules[event] then
 		AnimationHandler.EventMarkerModules[event](self, parameter)
+	elseif not ignoredKeyframeNames[event] then
+		--- There probably isn't a file named this keyframe anywhere, lets ignore it from now on
+		ignoredKeyframeNames[event] = true
+		print(string.format("ZomboLewd - Ignoring %s events from now on", event))
 	end
 end
 
