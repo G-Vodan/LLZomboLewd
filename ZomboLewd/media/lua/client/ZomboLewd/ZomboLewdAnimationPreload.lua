@@ -34,21 +34,43 @@ function Animations:refreshAnimations()
 	end
 end
 
-function Animations:getZLAnimations(list, isFemale)
+--- Returns a list of viable animations to fetch depending on factors listed below
+-- @param the animation list, usually Animations.Client.Animations
+-- @param boolean is it le... female?
+-- @param boolean is the act consensual
+-- @param boolean can this act be used with zombies
+function Animations:getZLAnimations(list, isFemale, isConsensual, isZombie)
 	local viableAnimations = {}
 
 	for _, animation in ipairs(list) do
 		local data = ZomboLewdAnimationData[animation]
 
 		if data then
+			local canAdd = true
+
+			--- Check if the animations are gender compatible
 			if isFemale then
-				if data.Animations.Female then
-					table.insert(viableAnimations, {Key = animation, Data = data})
+				if not data.Animations.Female then
+					canAdd = false
 				end
 			else
-				if data.Animations.Male then
-					table.insert(viableAnimations, {Key = animation, Data = data})
+				if not data.Animations.Male then
+					canAdd = false
 				end
+			end
+
+			--- Check if the animations can be used with zombie
+			if isZombie ~= nil and isZombie ~= data.IsZombieAllowed then
+				canAdd = false
+			end
+
+			--- Check if the animations are consensual
+			if isConsensual ~= nil and isConsensual ~= data.IsConsensual then
+				canAdd = false
+			end
+
+			if canAdd then
+				table.insert(viableAnimations, {Key = animation, Data = data})
 			end
 		end
 	end
