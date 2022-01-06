@@ -1,0 +1,8 @@
+IGUI_RU = {
+	IGUI_Cooldown_Grabs = "Время восстановления между нападениями",
+	IGUI_Minimum_Scratch = "Мин. сопротивление царапинам чтобы вас схватили",
+	IGUI_Can_Damage_Belt = "Включить повреждение ремня",
+	IGUI_Can_Damage_Pants = "Включить повреждение штанов",
+	IGUI_Can_Damage_Tshirt = "Включить повреждение футболки",
+	IGUI_Can_Damage_Shoes = "Включить повреждение обуви",
+}

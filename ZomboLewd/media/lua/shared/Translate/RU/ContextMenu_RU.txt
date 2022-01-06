@@ -1,0 +1,13 @@
+ContextMenu_RU = {
+	ContextMenu_Masturbate = "Мастурбация",
+	ContextMenu_Masturbation_FingerPussy = "Потеребить вагину",
+	ContextMenu_Masturbation_FingerAss = "Подрочить анус",
+	ContextMenu_Masturbation_FingerBoth = "Дрочить обе дырочки",
+	ContextMenu_Masturbation_StrokeCock = "Дрочить член",
+
+	ContextMenu_Ask_For_Sex = "Попросить занятся сексом",
+
+	ContextMenu_Debug_Option = "Отладка - ZomboLewd",
+	ContextMenu_Debug_Spawn_Comfort_Survivor = "Заспавнить НПС выжевшего",
+	ContextMenu_Debug_Spawn_Comfort_Survivor_Description = "Спавнит жаждущего секса выжевшего рядом с тобой. Всегда противоположного пола.",
+}
