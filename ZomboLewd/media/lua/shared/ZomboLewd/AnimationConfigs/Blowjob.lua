@@ -50,7 +50,7 @@ ZomboLewdAnimationData["ZomboLewd_Bob_Standing_Blowjob"] = {
 		necessarily equal to the actual animation length (but you can make it so if you like). If TimedDuration is longer than the
 		actual animation length itself, the animation will loop (useful if you want to make a looping animation without animating the entire thing)
 	]]
-	TimedDuration = 500,
+	TimedDuration = 1000,
 	
 	--[[
 		Boolean values. These only take true or false (yes, with all lowercase).

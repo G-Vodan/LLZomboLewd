@@ -1,0 +1,19 @@
+module Base
+{
+	sound ZomboLewdCum
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Cum/01.wav,
+		}
+	}
+	sound ZomboLewdCum
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/ZomboLewd/Cum/02.wav,
+		}
+	}
+}

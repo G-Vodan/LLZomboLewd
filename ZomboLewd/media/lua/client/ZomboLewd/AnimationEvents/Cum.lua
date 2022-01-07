@@ -1,17 +1,20 @@
 local IsoSprite = IsoSprite
 
+local cumSprites = {
+	"cum_floor_large_01",
+	"cum_floor_large_02",
+	"cum_floor_large_03"
+}
+
 return function(action, parameter)
-	action.character:playSound("ZomboLewdSlap")
+	action.character:playSound("ZomboLewdCum")
 
-	--[[
-	if not action.floorSprite then
-		action.floorSprite = IsoSprite.new()
-		action.floorSprite:LoadFramesNoDirPageSimple('media/ui/FloorTileCursor.png')
-	end
+	local offsetx = ZombRandFloat(3, 4)
+	local offsety = ZombRandFloat(2, 3)
 
-	local square = action.character:getSquare()
-	action.floorSprite:RenderGhostTile(square:getX(), square:getY(), square:getZ())
+	local square = getCell():getGridSquare(action.character:getX() + offsetx, action.character:getY() + offsety, action.character:getZ())
+	local cum = IsoObject.new(square, cumSprites[ZombRand(1, #cumSprites)])
 
-	print("rendered square")
-	]]
+	cum:setCustomColor(1, 1, 1, 1)
+	square:AddTileObject(cum)
 end
