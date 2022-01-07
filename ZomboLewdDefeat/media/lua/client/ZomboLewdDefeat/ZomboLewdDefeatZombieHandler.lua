@@ -17,63 +17,80 @@ local pairs = pairs
 
 local isoPlayersInAct = {}
 
-local bodyParts = {
-	Belt = {"box1", "dropdown3"},
-	Pants = {"box2", "dropdown4"},
-	Tshirt = {"box3", "dropdown5"},
-	Shoes = {"box1", "dropdown6"},
+--- The zombie will choose between these three tables to strip
+-- After choosing it, it will try to strip the clothing from left to right
+ZombieHandler.CheckPartsInTheseOrder = {
+	{"Jacket", "FullTop", "Sweater", "Shirt", "ShortSleeveShirt", "Tshirt", "TorsoExtra", "TankTop", "BathRobe", "UnderwearTop"},
+	{"Belt", "Pants", "Legs1", "Skirt", "UnderwearBottom"},
+	{"FullSuit", "Torso1Legs1", "Dress", "UnderwearTop", "UnderwearBottom"},
+}
+
+local holeType = {
+	{"ForeArm_L", "ForeArm_R", "Torso_Upper", "Torso_Lower", "UpperArm_L", "UpperArm_R"},
+	{"Groin", "LowerLeg_L", "LowerLeg_R", "UpperLeg_L", "UpperLeg_R", "Torso_Lower"},
+	{"Torso_Upper", "Torso_Lower", "Groin"},
 }
 
 --- Check if this target can be defeated due to armor and clothing
+-- @param zombie (not sure what to do with this yet)
 -- @param target
 local function checkForClothingDamage(zombie, target)
 	--- Copied from ISInventoryPaneContextMenu.lua
-	local previousBiteDefense = 0
-	local previousScratchDefense = 0
-	local previousCombatModifier = 0
-
 	local wornItems = target:getWornItems()
+	local index = ZombRand(1, #ZombieHandler.CheckPartsInTheseOrder)
+	local randomClothingList = ZombieHandler.CheckPartsInTheseOrder[index]
+	local canGrape = true
 
+	--- ModOptions
+	local conditionDamage = ZomboLewdDefeatConfig.ModOptions.options.dropdown2
+
+	--- For some reason PZ can return nil for wornItems
 	if wornItems then
-		local bodyLocationGroup = wornItems:getBodyLocationGroup()
-
+		--- Loop through the character's currently equipped items
 		for i = 1, wornItems:size() do
-			local wornItem = wornItems:get(i - 1)
+			local wornItem = wornItems:get(i - 1) --- Get the current worn item
 
 			if wornItem then
-				local item = wornItem:getItem()
-				local location = wornItem:getLocation()
+				local item = wornItem:getItem() --- Receive item data
+				local location = wornItem:getLocation() --- Receive location of where this item is located on the body
 
-				if item:IsClothing() then
-					for bodyLocation, option in pairs(bodyParts) do
-						if location == bodyLocation then
-							local conditionDamage = ZomboLewdDefeatConfig.ModOptions.options[option[2]]
+				if item:IsClothing() then --- Make sure it is a clothing piece
+					--- Iterate through the major clothing list the zombie will want to strip
+					for v = 1, #randomClothingList do
+						if canGrape then
+							local bodyPart = randomClothingList[v]
 
-							if ZomboLewdDefeatConfig.ModOptions.options[option[1]] then
-								item:setCondition(item:getCondition() - conditionDamage)
+							if location == bodyPart then
+								canGrape = false
+
+								if ZomboLewdDefeatConfig.ModOptions.options[string.format("box%s", tostring(index))] == true then
+									item:setCondition(item:getCondition() - conditionDamage)
+
+									if ZomboLewdDefeatConfig.ModOptions.options.box4 then
+										if ZombRand(0, 100) < ZomboLewdDefeatConfig.ModOptions.options.dropdown3 * 10 then
+											local holeIndex = holeType[index]
+											local chosenHole = holeIndex[ZombRand(1, #holeIndex)]
+											local bloodPart = BloodBodyPartType.FromString(chosenHole)
+
+											target:addHole(bloodPart)
+										end
+									end
+								end
 							end
 						end
 					end
-
-					previousBiteDefense = previousBiteDefense + item:getBiteDefense();
-					previousScratchDefense = previousScratchDefense + item:getScratchDefense();
-					previousCombatModifier = previousCombatModifier + item:getCombatSpeedModifier();
 				end
 			end
 		end
 	end
 
 	local minimumScratch = (ZomboLewdDefeatConfig.ModOptions.options.dropdown2 * 10)
----	print(minimumScratch)
 
-	local hasLoweredScratch = previousScratchDefense <= minimumScratch
-
-	if not hasLoweredScratch then
+	if not canGrape then
 		isoPlayersInAct[target] = {Ended = true, Tick = 0}
-		return false
-	else
-		return true
 	end
+
+	return canGrape
 end
 
 --- Make the zombie do lewd things to the target
@@ -108,10 +125,10 @@ local function attemptToDefeatTarget(zombie, target)
 			isoPlayersInAct[target].Ended = true
 
 			--- Temporarily set 'em far away
-			dummy:setX(dummy:getX() + 999999)
+			dummy:setX(dummy:getX() + 9999999)
 
 			local function _deleteDummy(tick)
-				if tick >= 25 then
+				if tick >= 100 then
 					ISTimedActionQueue.clear(target)
 					dummy:setInvincible(false)
 					dummy:setInvisible(false)

@@ -1,9 +1,9 @@
 IGUI_EN = {
 	IGUI_Cooldown_Grabs = "Cooldown between getting grabbed",
-	IGUI_Minimum_Scratch = "Minimum Scratch Resistance to get grabbed",
-
-	IGUI_Can_Damage_Belt = "Enable Belt Damage",
-	IGUI_Can_Damage_Pants = "Enable Pants Damage",
-	IGUI_Can_Damage_Tshirt = "Enable T-Shirt Damage",
-	IGUI_Can_Damage_Shoes = "Enable Shoes Damage",
+	IGUI_Condition_Damage = "Clothing condition damage per grab",
+	IGUI_Disable_Equipment_Top_Damage = "Enable Torso / Top Clothing damage",
+	IGUI_Disable_Equipment_Bottom_Damage = "Enable Pants / Bottom Clothing damage",
+	IGUI_Disable_Equipment_Full_Damage = "Enable Full Suit / Dress Clothing damage",
+	IGUI_Disable_Equipment_Hole_Damage = "Zombies will make hole in clothing",
+	IGUI_Hole_Damage_Value = "Zombie Grab makes Holes Chance",
 }
