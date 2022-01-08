@@ -10,7 +10,8 @@ local ZomboLewdDefeatModOptions = {
 		box2 = true,
 		box3 = true,
 		box4 = true,
-		dropdown3 = 5
+		dropdown3 = 5,
+		dropdown4 = 5,
 	},
 	names = {
 		dropdown1 = getText("IGUI_Cooldown_Grabs"),
@@ -19,7 +20,8 @@ local ZomboLewdDefeatModOptions = {
 		box2 = getText("IGUI_Disable_Equipment_Bottom_Damage"),
 		box3 = getText("IGUI_Disable_Equipment_Full_Damage"),
 		box4 = getText("IGUI_Disable_Equipment_Hole_Damage"),
-		dropdown3 = getText("IGUI_Hole_Damage_Value")
+		dropdown3 = getText("IGUI_Hole_Damage_Value"),
+		dropdown4 = getText("IGUI_Grab_Range"),
 	},
 	mod_id = "ZombolewdDefeat",	
 	mod_shortname = "ZomboLewd Defeat Options",
@@ -68,6 +70,16 @@ if ModOptions and ModOptions.getInstance then
 		table.insert(dropdown, "70%")
 		table.insert(dropdown, "80%")
 		table.insert(dropdown, "90%")
+		table.insert(dropdown, "100%")
+	end
+
+	--- GRAB RANGE
+	do
+		local dropdown = ZomboLewdDefeatModOptions.options_data.dropdown4
+		table.insert(dropdown, "20%")
+		table.insert(dropdown, "40%")
+		table.insert(dropdown, "60%")
+		table.insert(dropdown, "80%")
 		table.insert(dropdown, "100%")
 	end
 

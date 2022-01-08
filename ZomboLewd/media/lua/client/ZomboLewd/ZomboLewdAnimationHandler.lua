@@ -4,7 +4,8 @@
 
 require "TimedActions/ISBaseTimedAction"
 
-local AnimationHandler = {EventMarkerModules = {}}
+-- Initialize external tables
+local AnimationHandler = {EventMarkerModules = {}, ActionEvents = {Perform = {}, WaitToStart = {}, Start = {}, Stop = {}, Update = {}}}
 
 local ZomboLewdConfig = ZomboLewdConfig
 local ZomboLewdAnimationData = ZomboLewdAnimationData
@@ -129,6 +130,11 @@ function ISAnimationAction:waitToStart()
 		end
 	end
 
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.WaitToStart do
+		AnimationHandler.ActionEvents.WaitToStart[i](self)
+	end
+
 	self.waitingStarted = true
 
 	return continueWaiting
@@ -150,6 +156,11 @@ function ISAnimationAction:update()
 		if self.callbacks.Update then
 			self.callbacks.Update(self)
 		end
+	end
+
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.Update do
+		AnimationHandler.ActionEvents.Update[i](self)
 	end
 
 	--- Check if the other actor somehow got a bugged action
@@ -184,6 +195,11 @@ function ISAnimationAction:perform()
 		end
 	end
 
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.Perform do
+		AnimationHandler.ActionEvents.Perform[i](self)
+	end
+
 	ISBaseTimedAction.perform(self)
 end
 
@@ -199,6 +215,11 @@ function ISAnimationAction:stop()
 		if self.callbacks.Stop then
 			self.callbacks.Stop(self)
 		end
+	end
+
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.Stop do
+		AnimationHandler.ActionEvents.Stop[i](self)
 	end
 
 	ISBaseTimedAction.stop(self)

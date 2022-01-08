@@ -8,6 +8,7 @@ local Client = {
 	ContextMenu = require("ZomboLewd/ZomboLewdContextMenu"),
 	AnimationHandler = require("ZomboLewd/ZomboLewdAnimationHandler"),
 	ZombieHandler = require("ZomboLewd/ZomboLewdZombieHandler"),
+	Interface = require("ZomboLewd/ZomboLewdUI"),
 }
 
 local function Init()
@@ -17,14 +18,6 @@ local function Init()
 	end
 
 	Client.AnimationUtils:refreshAnimations()
-
-	--- Create mod options if the user installed the mod
-	--[[
-	if ModOptions and ModOptions.getInstance then
-		ModOptions:getInstance(ZomboLewdConfig)
-		print("CREATED MOD OPTIONS")
-	end
-	]]
 end
 
 Init()

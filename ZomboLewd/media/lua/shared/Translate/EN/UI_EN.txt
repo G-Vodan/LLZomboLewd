@@ -1,0 +1,22 @@
+UI_EN = {
+	UI_ZL_Trait_Sexaddict = "Sex Addicted",
+	UI_ZL_Trait_Sexaddict_Description = "Stress and unhappiness decreases after having sex. Unhappiness rises when not having sex.",
+	
+	UI_ZL_Trait_Masochist = "Masochist",
+	UI_ZL_Trait_Masochist_Description = "You love being raped. Being raped reduces your unhappiness. <br>+1 Lightfooted",
+
+	UI_ZL_Trait_Rapist = "Rapist",
+	UI_ZL_Trait_Rapist_Description = "You love raping everyone and everything. Raping unsuspecting individuals reduces your unhappiness. <br>+1 Sneaking",
+
+	UI_ZL_Trait_Wimp = "Fear of Rape",
+	UI_ZL_Trait_Wimp_Description = "Being raped traumatizes you and raises your unhappiness and stress.",
+
+	UI_ZL_Trait_Necrophiliac = "Necrophiliac",
+	UI_ZL_Trait_Necrophiliac_Description = "Having sex with the dead brings you much happiness.",
+
+	UI_ZL_Trait_Misogynist = "Misogynist",
+	UI_ZL_Trait_Misogynist_Description = "Hates women. Sex with women increases stress and unhappiness.",
+
+	UI_ZL_Trait_Misandrist  = "Misandrist",
+	UI_ZL_Trait_Misandrist_Description = "Hates men. Sex with men increases stress and unhappiness.",
+}

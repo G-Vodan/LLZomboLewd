@@ -1,4 +1,5 @@
-local IsoSprite = IsoSprite
+local IsoObject = IsoObject
+local ZombRandFloat = ZombRandFloat
 
 local cumSprites = {
 	"cum_floor_large_01",

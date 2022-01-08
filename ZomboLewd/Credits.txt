@@ -1,7 +1,20 @@
 SPECIAL THANKS TO:
 
-Jaivodents - Initial framework coding, animations, project lead
-Lizzy the LizardQueen & QueuedResonance - Programmer
-Flipdark95 & Herr Jordel - Models
-Stan - Textures
-Bullfye - SFX sounds for sex
+Programmers
+- Jaivodents
+- Lizzy the LizardQueen
+- QueuedResonance
+
+Models
+- Flipdark95
+- Herr Jordel
+
+Textures
+- Stan
+
+SFX
+- Bullfye
+
+Translations
+- Jaivodents
+- AsmodeusBarro
