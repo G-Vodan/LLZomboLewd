@@ -10,9 +10,9 @@ MakeUp_EN = {
 	MakeUpType_FaceEyeBrows ="Eyebrows",
 	MakeUpType_LipsSmeared ="Smeared",
 	MakeUpType_PussyArrow ="Arrow",
+	MakeUpCategory_Belly = "Belly",
 	MakeUpCategory_Belly = "Pussy",
 	MakeUpCategory_ForeHead = "ForeHead",
 	MakeUpCategory_Breast = "Breast",
 	MakeUpCategory_Face = "Face",
-	MakeUpCategory_Pussy = "Pussy",
 }
