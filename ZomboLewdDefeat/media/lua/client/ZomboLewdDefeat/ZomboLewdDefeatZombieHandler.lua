@@ -120,11 +120,23 @@ local function attemptToDefeatTarget(zombie, target)
 			local dummy = ZomboLewd.ZombieHandler:convertZombieToSurvivor(zombie)
 			dummy:getModData().dontDefeat = true
 
-			local intercourseList = ZomboLewd.Animations[ZomboLewdActType.Intercourse]
-			local animationList = ZomboLewd.AnimationUtils:getZLAnimations(intercourseList, isMainHeroFemale)
-
+			if isMainHeroFemale and zombieIsFemale then
+				--- Lesbian
+				maleCount = 0
+				femaleCount = 2
+			elseif isMainHeroFemale == false and zombieIsFemale == false then
+				--- Gay
+				maleCount = 2
+				femaleCount = 0
+			else
+				--- Straight
+				maleCount = 1
+				femaleCount = 1
+			end
+		
 			--- Choose random animation as a test
-			local index = ZombRand(1, #animationList)
+			local animationList = ZomboLewd.AnimationUtils:getAnimations(2, maleCount, femaleCount, {"Sex"})
+			local index = ZombRand(1, #animationList + 1)
 			local chosenAnimation = animationList[index]
 
 			local function cleanup()
@@ -153,7 +165,7 @@ local function attemptToDefeatTarget(zombie, target)
 				zombie:setNoDamage(false)
 			end
 
-			ZomboLewd.AnimationHandler.PlayDuo(nil, dummy, target, chosenAnimation, true, true, {
+			ZomboLewd.AnimationHandler.Play(nil, {dummy, target}, chosenAnimation, true, true, {
 				Update = function(action)
 					isoPlayersInAct[target].TimeOut = 0
 

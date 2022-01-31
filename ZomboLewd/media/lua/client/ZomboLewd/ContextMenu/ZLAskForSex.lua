@@ -17,14 +17,29 @@ local string = string
 -- @param IsoPlayer object of the asked target
 local function onAskForSex(worldobjects, contextMenu, requestor, target)
 	local isMainHeroFemale = requestor:isFemale()
-	local intercourseList = contextMenu.Client.Animations[ZomboLewdActType.Intercourse]
-	local animationList = contextMenu.Client.AnimationUtils:getZLAnimations(intercourseList, isMainHeroFemale)
+	local isTargetFemale = target:isFemale()
+	local maleCount, femaleCount = 0, 0
+
+	if isMainHeroFemale and isTargetFemale then
+		--- Lesbian
+		maleCount = 0
+		femaleCount = 2
+	elseif isMainHeroFemale == false and isTargetFemale == false then
+		--- Gay
+		maleCount = 2
+		femaleCount = 0
+	else
+		--- Straight
+		maleCount = 1
+		femaleCount = 1
+	end
 
 	--- Choose random animation as a test
-	local index = ZombRand(1, #animationList)
+	local animationList = contextMenu.Client.AnimationUtils:getAnimations(2, maleCount, femaleCount, {"Sex"})
+	local index = ZombRand(1, #animationList + 1)
 	local chosenAnimation = animationList[index]
 
-	contextMenu.Client.AnimationHandler.PlayDuo(worldobjects, requestor, target, chosenAnimation)
+	contextMenu.Client.AnimationHandler.Play(worldobjects, {requestor, target}, chosenAnimation)
 end
 
 --- Creates a ask for seks context menu

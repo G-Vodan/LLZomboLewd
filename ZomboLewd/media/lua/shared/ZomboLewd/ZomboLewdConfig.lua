@@ -3,3 +3,5 @@ ZomboLewdConfig = {
 	IconImageExtension = ".png",
 	DefaultSexDuration = 300,
 }
+
+ZomboLewdAnimationData = {}

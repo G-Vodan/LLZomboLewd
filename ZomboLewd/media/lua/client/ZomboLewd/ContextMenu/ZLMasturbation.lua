@@ -6,7 +6,6 @@ local ISToolTip = ISToolTip
 
 local ZomboLewdConfig = ZomboLewdConfig
 local ZomboLewdActType = ZomboLewdActType
-local ZomboLewdAnimationList = ZomboLewdAnimationList
 
 local getText = getText
 local string = string
@@ -19,8 +18,7 @@ local ipairs = ipairs
 -- @worldobjects table of world objects nearby the player
 return function(ContextMenu, playerObj, context, worldobjects)
 	local isFemale = playerObj:isFemale()
-	local masturbationList = ContextMenu.Client.Animations[ZomboLewdActType.Masturbation]
-	local animationList = ContextMenu.Client.AnimationUtils:getZLAnimations(masturbationList, isFemale)
+	local animationList = ContextMenu.Client.AnimationUtils:getAnimations(1, isFemale and 0 or 1, isFemale and 1 or 0, {"Masturbation"})
 
 	--- Create an option in the right-click menu, and then creates a submenu for that
 	local masturbateOption = context:addOption(getText("ContextMenu_Masturbate"), worldobjects)
@@ -29,11 +27,9 @@ return function(ContextMenu, playerObj, context, worldobjects)
 
 	--- Start creating our submenus based on the player's gender
 	for i = 1, #animationList do
-		local anim = animationList[i]
-		local key = anim.Key
-		local data = anim.Data
-		local contextName = isFemale and data.Animations.Female or data.Animations.Male
-		local text = getText(string.format("ContextMenu_Masturbation_%s", contextName))
+		local animation = animationList[i]
+		local contextMenu_translate_text = string.format("ContextMenu_%s%s", animation.prefix, animation.id)
+		local text = getText(contextMenu_translate_text)
 		
 		if text then
 			--- Create a new tooltip when the player hovers over the sub option
@@ -44,10 +40,10 @@ return function(ContextMenu, playerObj, context, worldobjects)
 			toolTip:setVisible(false)
 
 			--- Create the new sub option
-			local animationOption = masturbationSubMenu:addOption(text, worldobjects, ContextMenu.Client.AnimationHandler.PlaySolo, playerObj, anim)
+			local animationOption = masturbationSubMenu:addOption(text, worldobjects, ContextMenu.Client.AnimationHandler.Play, {playerObj}, animation)
 			animationOption.toolTip = toolTip
 		else
-			print(string.format("Missing Text: %s", anim))
+			print(string.format("Missing Text: %s", contextMenu_translate_text))
 		end
 	end
 end

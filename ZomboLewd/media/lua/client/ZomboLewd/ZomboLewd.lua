@@ -2,13 +2,13 @@
 -- @author QueuedResonance 2022
 
 local Client = {
-	AnimationUtils = require("ZomboLewd/ZomboLewdAnimationPreload"),
+	AnimationUtils = require("ZomboLewd/ZomboLewdAnimationUtils"),
 	Commands = require("ZomboLewd/ZomboLewdCommands"),
 	Callbacks = require("ZomboLewd/ZomboLewdCallbacks"),
 	ContextMenu = require("ZomboLewd/ZomboLewdContextMenu"),
 	AnimationHandler = require("ZomboLewd/ZomboLewdAnimationHandler"),
 	ZombieHandler = require("ZomboLewd/ZomboLewdZombieHandler"),
-	Interface = require("ZomboLewd/ZomboLewdUI"),
+---	Interface = require("ZomboLewd/ZomboLewdUI"),
 }
 
 local function Init()
@@ -16,8 +16,6 @@ local function Init()
 	for name, module in pairs(Client) do
 		module.Client = Client
 	end
-
-	Client.AnimationUtils:refreshAnimations()
 end
 
 Init()
