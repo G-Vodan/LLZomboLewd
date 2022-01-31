@@ -6,4 +6,5 @@ IGUI_EN = {
 	IGUI_Can_Damage_Pants = "Activer les dommages aux pantalons",
 	IGUI_Can_Damage_Tshirt = "Activer les dommages aux t-shirts",
 	IGUI_Can_Damage_Shoes = "Activer les dommages aux chaussures",
+	IGUI_Surrender_Text = "Je me rends!"
 }

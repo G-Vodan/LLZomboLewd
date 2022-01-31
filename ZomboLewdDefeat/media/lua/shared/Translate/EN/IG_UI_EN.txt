@@ -6,4 +6,5 @@ IGUI_EN = {
 	IGUI_Disable_Equipment_Full_Damage = "Enable Full Suit / Dress Clothing damage",
 	IGUI_Disable_Equipment_Hole_Damage = "Zombies will make hole in clothing",
 	IGUI_Hole_Damage_Value = "Zombie Grab makes Holes Chance",
+	IGUI_Surrender_Text = "I surrender!"
 }

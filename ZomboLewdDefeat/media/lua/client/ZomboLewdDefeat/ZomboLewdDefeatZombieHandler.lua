@@ -16,13 +16,14 @@ local ZombRand = ZombRand
 local pairs = pairs
 
 local isoPlayersInAct = {}
+local surrendering = false
 
 --- The zombie will choose between these three tables to strip
 -- After choosing it, it will try to strip the clothing from left to right
 ZombieHandler.CheckPartsInTheseOrder = {
 	{"Jacket", "FullTop", "Sweater", "Shirt", "ShortSleeveShirt", "Tshirt", "TorsoExtra", "TankTop", "BathRobe", "UnderwearTop"},
 	{"Belt", "Pants", "Legs1", "Skirt", "UnderwearBottom"},
-	{"FullSuit", "Torso1Legs1", "Dress", "UnderwearTop", "UnderwearBottom"},
+	{"FullSuit", "Torso1Legs1", "Dress", "UnderwearTop", "UnderwearBottom", "UnderwearExtra1"},
 }
 
 local holeType = {
@@ -93,6 +94,35 @@ local function checkForClothingDamage(zombie, target)
 	return canGrape
 end
 
+local function UnequipBottomClothing()
+	local playerItems = getPlayer():getInventory():getItems()
+
+	for i = 0, playerItems:size() - 1 do
+        local loopitem = playerItems:get(i)
+        local itemBodyLocation = loopitem:getBodyLocation()
+
+        if loopitem:isEquipped() then
+        	if instanceof(loopitem, "Clothing") then
+        		local randomClothingList = ZombieHandler.CheckPartsInTheseOrder[2]
+
+        		for v = 1, #randomClothingList do
+	        		if loopitem:getBodyLocation() == randomClothingList[v] then
+	        			loopitem:Unwear()
+	        		end
+	        	end
+
+	        	randomClothingList = ZombieHandler.CheckPartsInTheseOrder[3]
+
+	        	for v = 1, #randomClothingList do
+	        		if loopitem:getBodyLocation() == randomClothingList[v] then
+	        			loopitem:Unwear()
+	        		end
+	        	end
+        	end
+        end
+    end
+end
+
 --- Make the zombie do lewd things to the target
 -- @param IsoZombie
 -- @param IsoPlayer
@@ -105,10 +135,15 @@ local function attemptToDefeatTarget(zombie, target)
 	if target:getModData().zomboLewdSexScene then return end
 	if target:getModData().dontDefeat then return end
 
-	if not isoPlayersInAct[target] and zombie:DistTo(target) < 1 then
+	if not isoPlayersInAct[target] and zombie:DistTo(target) < 1.5 then
+
 		isoPlayersInAct[target] = {Ended = false, Tick = 0, TimeOut = 0}
 
-		if not checkForClothingDamage(zombie, target) then return end
+		if surrendering then
+			UnequipBottomClothing()
+		else
+			if not checkForClothingDamage(zombie, target) then return end
+		end
 
 		--- Time to grape em
 		local dummy = ZomboLewd.ZombieHandler:convertZombieToSurvivor(zombie)
@@ -123,6 +158,8 @@ local function attemptToDefeatTarget(zombie, target)
 
 		local function cleanup()
 			isoPlayersInAct[target].Ended = true
+
+			if surrendering then surrendering = false end
 
 			--- Temporarily set 'em far away
 			dummy:setX(dummy:getX() + 9999999)
@@ -184,6 +221,17 @@ local function attemptToDefeatTarget(zombie, target)
 	end
 end
 
+local function OnKeyUp(keynum)
+	local specificPlayer = getSpecificPlayer(0)
+	if specificPlayer ~= nil then
+		if keynum == ZomboLewdDefeatConfig.Surrender_Key.key then 
+			surrendering = true
+			getPlayer():setSayLine(getText("IGUI_Surrender_Text"))
+			getPlayer():playEmote("Surrender")
+		end
+	end
+end
+
 local function OnZombieUpdate(zombie)
 	if zombie:isUseless() then return end
 
@@ -191,7 +239,7 @@ local function OnZombieUpdate(zombie)
 	if not target then return end
 
 	--- Check if this zombie is attacking this target
-	if zombie:isZombieAttacking(target) then
+	if zombie:isZombieAttacking(target) or surrendering then
 		attemptToDefeatTarget(zombie, target)
 	end
 end
@@ -229,5 +277,6 @@ end
 --- Hook up event listeners
 Events.OnZombieUpdate.Add(OnZombieUpdate)
 Events.OnTick.Add(OnGrabImmunity)
+Events.OnKeyPressed.Add(OnKeyUp)
 
 return ZombieHandler

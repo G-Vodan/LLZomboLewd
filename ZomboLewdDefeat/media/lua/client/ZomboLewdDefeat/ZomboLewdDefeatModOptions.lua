@@ -25,7 +25,13 @@ local ZomboLewdDefeatModOptions = {
 	mod_shortname = "ZomboLewd Defeat Options",
 }
 
+local Surrender_Key = {
+  key = Keyboard.KEY_NUMPAD2,
+  name = "surrender",
+}
+
 ZomboLewdDefeatConfig.ModOptions = ZomboLewdDefeatModOptions
+ZomboLewdDefeatConfig.Surrender_Key = Surrender_Key
 
 if ModOptions and ModOptions.getInstance then
 	ModOptions:getInstance(ZomboLewdDefeatConfig.ModOptions)
@@ -72,4 +78,5 @@ if ModOptions and ModOptions.getInstance then
 	end
 
 	ModOptions:loadFile()
+	ModOptions:AddKeyBinding("[Player Control]", Surrender_Key)
 end

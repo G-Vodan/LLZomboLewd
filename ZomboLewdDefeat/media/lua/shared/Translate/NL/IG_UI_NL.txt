@@ -6,4 +6,5 @@ IGUI_EN = {
 	IGUI_Disable_Equipment_Full_Damage = "Schade aan volledig pak / jurk inschakelen",
 	IGUI_Disable_Equipment_Hole_Damage = "Zombies maken gaten in kleding",
 	IGUI_Hole_Damage_Value = "De kans voor zombie om gaten te maken",
+	IGUI_Surrender_Text = "Ik geef me over!"
 }
