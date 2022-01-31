@@ -1,0 +1,9 @@
+IGUI_EN = {
+	IGUI_Cooldown_Grabs = "Tijd tussen gepakt te worden",
+	IGUI_Condition_Damage = Kleding conditie schade per grijpbeurt",
+	IGUI_Disable_Equipment_Top_Damage = "Schade aan torso / topkleding inschakelen",
+	IGUI_Disable_Equipment_Bottom_Damage = "Schade aan broek / onderbroek inschakelen",
+	IGUI_Disable_Equipment_Full_Damage = "Schade aan volledig pak / jurk inschakelen",
+	IGUI_Disable_Equipment_Hole_Damage = "Zombies maken gaten in kleding",
+	IGUI_Hole_Damage_Value = "De kans voor zombie om gaten te maken",
+}
