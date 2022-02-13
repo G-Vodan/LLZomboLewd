@@ -1,5 +1,5 @@
 -- @author QueuedResonance
 
-return function(message)
+return function(playerObj, message)
 	print(string.format("Server received message from a Client: %s"))
 end

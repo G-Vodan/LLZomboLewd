@@ -8,7 +8,6 @@ local Client = {
 	ContextMenu = require("ZomboLewd/ZomboLewdContextMenu"),
 	AnimationHandler = require("ZomboLewd/ZomboLewdAnimationHandler"),
 	ZombieHandler = require("ZomboLewd/ZomboLewdZombieHandler"),
----	Interface = require("ZomboLewd/ZomboLewdUI"),
 }
 
 local function Init()
@@ -22,10 +21,7 @@ Init()
 
 --- Helper function to determine if this is a solo or multiplayer game
 function Client:IsMultiplayer()
-	if isClient() == false and isServer() == false then
-		return false
-	end
-	return true
+	return getWorld():getGameMode() == "Multiplayer"
 end
 
 return Client

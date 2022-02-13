@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animNode>
-	<m_Name>StandingBJF</m_Name>
-	<m_AnimName>Bob_Stand_BJ_F</m_AnimName>
+	<m_Name>SitFuckF</m_Name>
+	<m_AnimName>Bob_Sit_Fuck_F</m_AnimName>
 	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
 	<m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
 	<m_SpeedScale>1.05</m_SpeedScale>
@@ -9,7 +9,7 @@
 	<m_Conditions>
 		<m_Name>PerformingAction</m_Name>
 		<m_Type>STRING</m_Type>
-		<m_StringValue>StandingBJF</m_StringValue>
+		<m_StringValue>SitFuckF</m_StringValue>
 	</m_Conditions>
 	<m_SubStateBoneWeights>
 		<boneName>Dummy01</boneName>

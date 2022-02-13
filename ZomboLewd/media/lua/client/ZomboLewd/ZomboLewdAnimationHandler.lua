@@ -31,11 +31,11 @@ function AnimationHandler.Play(worldobjects, actors, animationData, disableCance
 	if #actors < 1 then return end
 	if not disableWalk then
 		for _, actor in ipairs(actors) do
-		---	if actor ~= actors[1] then
+			if actor ~= actors[1] then
 				if not luautils.walkAdj(actor, actors[1]:getSquare(), true) then
 					return
 				end
-		---	end
+			end
 		end
 	end
 
@@ -105,74 +105,6 @@ function AnimationHandler.Play(worldobjects, actors, animationData, disableCance
 	return otherActions
 end
 
---- Plays duo animations (usually a sex animation between two individuals) between two characters
--- @param worldObjects is a table of all nearby objects
--- @param IsoPlayer of the first character
--- @param IsoPlayer of the second character
--- @param animationdata for which the actors will be playing
--- @param boolean, prevents cancellation of this action if set to true (for example, non-consensual actions)
--- @param boolean, disables the initial walk of the animation (both actors will teleport to eachother instantly for the scene)
--- @param callbacks - table of functions with WaitToStart, Start, Stop, Update, and Perform
-function AnimationHandler.PlayDuo(worldObjects, character1, character2, animationData, disableCancel, disableWalk, callbacks)
-	disableWalk = disableWalk or false
-
-	if not character1 or not character2 then return end
-	if not instanceof(character1, "IsoPlayer") or not instanceof(character2, "IsoPlayer") then return end
-	if not disableWalk then
-		if not luautils.walkAdj(character1, character2:getSquare(), true) then
-			return
-		end
-	end
-
-	disableCancel = disableCancel or false
-
-	--- Get the position of the original character, then get the facing position of the second character
-	local x, y, z = character2:getX(), character2:getY(), character2:getZ()
-	local facing = character2:getDir()
-
-	--- Sets the Action to save the position and facing directions
-	local isFemale1 = character1:isFemale()
-	local isFemale2 = character2:isFemale()
-
-	local animation1 = isFemale1 and animationData.Data.Animations.Female or animationData.Data.Animations.Male
-	local animation2 = isFemale2 and animationData.Data.Animations.Female or animationData.Data.Animations.Male
-
-	local action1 = ISAnimationAction:new(character1, animation1, animationData.Data.TimedDuration)
-	action1.originalPosition = {x = character1:getX(), y = character1:getY(), z = character1:getY()}
-	action1.position = {x = x, y = y, z = z}
-	action1.facing = facing
-	action1.waitingStarted = false
-	action1.callbacks = callbacks
-
-	local action2 = ISAnimationAction:new(character2, animation2, animationData.Data.TimedDuration)
-	action1.originalPosition = {x = x, y = y, z = z}
-	action2.position = {x = x, y = y, z = z}
-	action2.facing = facing
-	action2.waitingStarted = false
-	action1.callbacks = callbacks
-
-	if disableCancel == true then
-		action1.stopOnRun = false
-		action1.stopOnAim = false
-		action2.stopOnRun = false
-		action2.stopOnAim = false
-	end
-
-	action1.otherAction = action2
-	action2.otherAction = action1
-
-	--- Activate the animations
-	if disableWalk then
-		ISTimedActionQueue.clear(character1)
-		ISTimedActionQueue.clear(character2)
-	end
-
-	ISTimedActionQueue.add(action1)
-	ISTimedActionQueue.add(action2)
-
-	return action1, action2
-end
-
 function ISAnimationAction:isValid()
 	--- Make sure to keep the TimedAction running
 	return true
@@ -183,19 +115,22 @@ function ISAnimationAction:waitToStart()
 	--- true = delay the timedaction
 
 	local continueWaiting = self.character:shouldBeTurning()
-	local otherActionLength = #self.otherActions
 
 	--- Check if other characters are still turning towards the original actor
-	if otherActionLength > 1 then
-		for i = 1, otherActionLength do
-			local otherAction = self.otherActions[i]
+	if self.otherActions then
+		local otherActionLength = #self.otherActions
 
-			--- Wait till the other actors has finished their turning
-			if otherAction.character ~= self.character then
-				self.character:faceThisObject(otherAction.character)
-			
-				if(otherAction.waitingStarted == false or otherAction.character:shouldBeTurning() == true) then
-					continueWaiting = true
+		if otherActionLength > 1 then
+			for i = 1, otherActionLength do
+				local otherAction = self.otherActions[i]
+
+				--- Wait till the other actors has finished their turning
+				if otherAction.character ~= self.character then
+					self.character:faceThisObject(otherAction.character)
+				
+					if(otherAction.waitingStarted == false or otherAction.character:shouldBeTurning() == true) then
+						continueWaiting = true
+					end
 				end
 			end
 		end

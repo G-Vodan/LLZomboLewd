@@ -1,16 +1,27 @@
-require "ZomboLewd/ZomboLewdAnimationList" --- Always include this at the top
+require "ZomboLewd/ZomboLewdConfig" --- Always include this at the top to forceload ZomboLewd prior to this animation file
 
-
-ZomboLewdAnimationData["ZomboLewd_Bob_Standing_Blowjob"] = {
-	ActType = ZomboLewdActType.Intercourse,
-
-	Animations = {
-		Male = "StandingBJM",
-		Female = "StandingBJF",
-	},
-	
-	TimedDuration = 500,
-	
-	IsConsensual = true, --- Used for external mods to determine consensual / non-consensual. Framework will play all animations, regardless of this setting.
-	IsZombieAllowed = true, --- Used to determine if zombies are able to use this animation
-}
+table.insert(ZomboLewdAnimationData, {
+	prefix = "ZomboLewd_",
+	id = "Blowjob",
+	tags = {"Blowjob", "Sex", "MF"},
+	actors = {
+		{
+			gender = "Female",
+			stages = {
+				{
+					perform = "StandingBJF",
+					duration = 1000
+				}
+			}
+		},
+		{
+			gender = "Male",
+			stages = {
+				{
+					perform = "StandingBJM",
+					duration = 1000
+				}
+			}
+		}
+	}
+})

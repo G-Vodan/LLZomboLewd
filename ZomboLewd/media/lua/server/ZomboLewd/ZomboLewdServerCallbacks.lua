@@ -1,7 +1,9 @@
 -- @author QueuedResonance 2022
 
 local Callbacks = {}
-local ServerCommands = require("ZomboLewd/ZomboLewdServerCommands")
+
+local ServerCommands = {}
+local IgnoredCommands = {}
 
 local CommandName = ZomboLewdConfig.CommandName
 
@@ -9,11 +11,17 @@ local CommandName = ZomboLewdConfig.CommandName
 -- @param module string, should be default "ZomboLewd"
 -- @param command string should be the name as the command in ZomboLewdCommands
 -- @param IsoPlayer player that sent the command
-function Callbacks._onClientCommand(module, command, player, ...)
+local function onClientCommand(module, command, player, args)
 	if not isServer() or module ~= CommandName then return end
 
+	if not ServerCommands[command] and not IgnoredCommands[command] then
+		ServerCommands[moduleName] = require(string.format("ZomboLewd/ServerCommands/%s", moduleName))
+	end
+
 	if ServerCommands[command] then
-		ServerCommands[command](player, ...)
+		ServerCommands[command](player, args)
+	elseif not IgnoredCommands[command] then
+		IgnoredCommands[command] = true
 	end
 end
 
@@ -22,10 +30,10 @@ end
 function Callbacks:sendServerCommand(command, ...)
 	if not isServer() then return end
 
-	sendServerCommand(CommandName, command, ...)
+	sendServerCommand(CommandName, command, {...})
 end
 
 --- Hook up event listeners
-Events.OnClientCommand.Add(Callbacks._onClientCommand)
+Events.OnClientCommand.Add(onClientCommand)
 
 return Callbacks

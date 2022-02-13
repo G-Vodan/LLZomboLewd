@@ -1,15 +1,18 @@
-require "ZomboLewd/ZomboLewdAnimationList" --- Always include this at the top
+require "ZomboLewd/ZomboLewdConfig" --- Always include this at the top to forceload ZomboLewd prior to this animation file
 
-ZomboLewdAnimationData["ZomboLewd_Bob_Stroke_Cock"] = {
-
-	ActType = ZomboLewdActType.Masturbation,
-
-	Animations = {
-		Male = "StrokeCock",
-	},
-	
-	TimedDuration = 300,
-
-	IsConsensual = true, --- Used for external mods to determine consensual / non-consensual. Framework will play all animations, regardless of this setting.
-	IsZombieAllowed = false, --- Used to determine if zombies are able to use this animation
-}
+table.insert(ZomboLewdAnimationData, {
+	prefix = "Masturbation_",
+	id = "StrokeCock",
+	tags = {"Masturbation", "Solo", "M"},
+	actors = {
+		{
+			gender = "Male",
+			stages = {
+				{
+					perform = "StrokeCock",
+					duration = 300
+				}
+			}
+		}
+	}
+})
