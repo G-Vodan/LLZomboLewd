@@ -12,7 +12,7 @@ require "ZomboLewd/ZomboLewdConfig" --- Always include this at the top to forcel
 				Your XML file should have these values:
 				<m_Name>PerformingAction</m_Name>
 				<m_Type>STRING</m_Type>
-				<m_StringValue>ANIMATION_STRING_NAME</m_StringValue>  <--- USE THIS FOR PERFORM
+				<m_StringValue>   NAME_OF_ANIMATION   </m_StringValue>  <--- USE THIS FOR PERFORM
 			
 			duration: specifies how long you want this animation to play during the TimedAction sequences. TimedActions are the green
 				progress bar you see on top of your head whenever you do an action that requires "time" to complete. Duration does not
@@ -29,7 +29,7 @@ table.insert(ZomboLewdAnimationData, {
 			gender = "Female",
 			stages = {
 				{
-					perform = "ANIMATION_STRING_NAME",
+					perform = "NAME_OF_ANIMATION",
 					duration = 300
 				}
 			}
@@ -38,7 +38,7 @@ table.insert(ZomboLewdAnimationData, {
 			gender = "Male",
 			stages = {
 				{
-					perform = "ANIMATION_STRING_NAME",
+					perform = "NAME_OF_ANIMATION",
 					duration = 300
 				}
 			}
