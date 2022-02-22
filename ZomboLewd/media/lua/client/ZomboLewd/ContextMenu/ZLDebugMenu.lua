@@ -13,21 +13,17 @@ local ZomboLewdConfig = ZomboLewdConfig
 local getText = getText
 local string = string
 
+local ZomboLewd
+
 --- Spawns a comfort survivor at the position of the player
 -- @worldobjects table of world objects nearby the player
 -- @param IsoPlayer object
 local function spawnComfortSurvivor(worldobjects, playerObj)
-	local desc = SurvivorFactory.CreateSurvivor(nil, not playerObj:isFemale())
-	SurvivorFactory.randomName(desc)
-
-	local survivorModel = IsoPlayer.new(getWorld():getCell(), desc, playerObj:getX(), playerObj:getY(), playerObj:getZ())
-	survivorModel:getInventory():emptyIt()
-	survivorModel:setSceneCulled(false)
-	survivorModel:setBlockMovement(true)
-	survivorModel:setNPC(true)
-	survivorModel:dressInRandomOutfit()
-	survivorModel:setDir(playerObj:getDir())
-	survivorModel:resetModelNextFrame()
+	if isClient() then
+		ZomboLewd.Callbacks:sendClientCommand("SpawnComfortSurvivor")
+	else
+		ZomboLewdConfig.Modules.SpawnComfortSurvivor(playerObj)
+	end
 end
 
 --- Creates a debug context menu
@@ -37,6 +33,11 @@ end
 -- @worldobjects table of world objects nearby the player
 return function(ContextMenu, playerObj, context, worldobjects)
 	if not ZomboLewdConfig.ModOptions.options.box2 then return end
+
+	--- Cache the client
+	if not ZomboLewd then
+		ZomboLewd = ContextMenu.Client
+	end
 
 	--- Create an option in the right-click menu, and then creates a submenu for that
 	local debugOption = context:addOption(getText("ContextMenu_Debug_Option"), worldobjects)

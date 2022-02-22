@@ -12,6 +12,11 @@
 		<m_StringValue>SitFuckM</m_StringValue>
 	</m_Conditions>
 	<m_Events>
+		<m_EventName>Cum</m_EventName>
+		<m_TimePc>End</m_TimePc>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
+	<m_Events>
 		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.1</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
@@ -94,11 +99,6 @@
 	<m_Events>
 		<m_EventName>Slap</m_EventName>
 		<m_TimePc>0.9</m_TimePc>
-		<m_ParameterValue></m_ParameterValue>
-	</m_Events>
-	<m_Events>
-		<m_EventName>Slap</m_EventName>
-		<m_TimePc>0.95</m_TimePc>
 		<m_ParameterValue></m_ParameterValue>
 	</m_Events>
 	<m_SubStateBoneWeights>

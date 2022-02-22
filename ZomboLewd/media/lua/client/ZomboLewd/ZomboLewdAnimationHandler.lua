@@ -4,7 +4,8 @@
 
 require "TimedActions/ISBaseTimedAction"
 
-local AnimationHandler = {EventMarkerModules = {}}
+-- Initialize external tables
+local AnimationHandler = {EventMarkerModules = {}, ActionEvents = {Perform = {}, WaitToStart = {}, Start = {}, Stop = {}, Update = {}}}
 
 local ZomboLewdConfig = ZomboLewdConfig
 local ZomboLewdAnimationData = ZomboLewdAnimationData
@@ -14,94 +15,94 @@ local ISTimedActionQueue = ISTimedActionQueue
 local luautils = luautils
 local ignoredKeyframeNames = {}
 
+local ipairs = ipairs
+
 ISAnimationAction = ISBaseTimedAction:derive("ISZomboLewdAnimationAction")
 
---- Plays a solo (usually masturbation) animation on this specific character
--- @param worldObjects is a table of all nearby objects
--- @param IsoPlayer character object
--- @param animationdata
--- @param callbacks - table of functions with WaitToStart, Start, Stop, Update and Perform
-function AnimationHandler.PlaySolo(worldObjects, character, animationData, callbacks)
-	if not character then return end
-	if not instanceof(character, "IsoPlayer") then return end
-
-	local isFemale = character:isFemale()
-	local data = animationData.Data
-	local duration = data.TimedDuration
-	local animation = isFemale and data.Animations.Female or data.Animations.Male
-	local action = ISAnimationAction:new(character, animation, duration)
-	action.callbacks = callbacks
-
-	ISTimedActionQueue.clear(character)
-	ISTimedActionQueue.add(action)
-end
-
---- Plays duo animations (usually a sex animation between two individuals) between two characters
--- @param worldObjects is a table of all nearby objects
--- @param IsoPlayer of the first character
--- @param IsoPlayer of the second character
--- @param animationdata for which the actors will be playing
--- @param boolean, prevents cancellation of this action if set to true (for example, non-consensual actions)
--- @param boolean, disables the initial walk of the animation (both actors will teleport to eachother instantly for the scene)
--- @param callbacks - table of functions with WaitToStart, Start, Stop, Update, and Perform
-function AnimationHandler.PlayDuo(worldObjects, character1, character2, animationData, disableCancel, disableWalk, callbacks)
+--- Plays an animation using the given animation data
+-- @param worldobjects: an array of all nearby objects, usually returned through a contextMenu
+-- @param actors: an array of actors to be played in this scene. Must be IsoPlayer types. First actor will usually be the position where the act takes place
+-- @param animationData: the animation object passed from AnimationUtils:getAnimations()
+-- @param disableCancel boolean: prevents cancellation of this action if set to true (for example, non-consensual actions)
+-- @param disableWalk boolean: disables the initial walk of the animation (actors will teleport to eachother instantly for the scene)
+function AnimationHandler.Play(worldobjects, actors, animationData, disableCancel, disableWalk, callbacks)
 	disableWalk = disableWalk or false
 
-	if not character1 or not character2 then return end
-	if not instanceof(character1, "IsoPlayer") or not instanceof(character2, "IsoPlayer") then return end
+	if #actors < 1 then return end
 	if not disableWalk then
-		if not luautils.walkAdj(character1, character2:getSquare(), true) then
-			return
+		for _, actor in ipairs(actors) do
+			if actor ~= actors[1] then
+				if not luautils.walkAdj(actor, actors[1]:getSquare(), true) then
+					return
+				end
+			end
 		end
 	end
 
 	disableCancel = disableCancel or false
 
 	--- Get the position of the original character, then get the facing position of the second character
-	local x, y, z = character2:getX(), character2:getY(), character2:getZ()
-	local facing = character2:getDir()
+	local x, y, z = actors[1]:getX(), actors[1]:getY(), actors[1]:getZ()
+	local facing = actors[1]:getDir()
+	local otherActions = {}
 
-	--- Sets the Action to save the position and facing directions
-	local isFemale1 = character1:isFemale()
-	local isFemale2 = character2:isFemale()
-
-	local animation1 = isFemale1 and animationData.Data.Animations.Female or animationData.Data.Animations.Male
-	local animation2 = isFemale2 and animationData.Data.Animations.Female or animationData.Data.Animations.Male
-
-	local action1 = ISAnimationAction:new(character1, animation1, animationData.Data.TimedDuration)
-	action1.originalPosition = {x = character1:getX(), y = character1:getY(), z = character1:getY()}
-	action1.position = {x = x, y = y, z = z}
-	action1.facing = facing
-	action1.waitingStarted = false
-	action1.callbacks = callbacks
-
-	local action2 = ISAnimationAction:new(character2, animation2, animationData.Data.TimedDuration)
-	action1.originalPosition = {x = x, y = y, z = z}
-	action2.position = {x = x, y = y, z = z}
-	action2.facing = facing
-	action2.waitingStarted = false
-	action1.callbacks = callbacks
-
-	if disableCancel == true then
-		action1.stopOnRun = false
-		action1.stopOnAim = false
-		action2.stopOnRun = false
-		action2.stopOnAim = false
+	--- Cache the available actor positions
+	local availablePositions = {} do
+		for _, actor in ipairs(animationData.actors) do
+			table.insert(availablePositions, actor)
+		end
 	end
 
-	action1.otherAction = action2
-	action2.otherAction = action1
+	for i, actor in ipairs(actors) do
+		local isFemale = actor:isFemale()
+		local job
+		
+		--- Check for a valid position in the animation dependent on gender
+		for i = #availablePositions, 1, -1 do
+			local canUsePosition = true
 
-	--- Activate the animations
-	if disableWalk then
-		ISTimedActionQueue.clear(character1)
-		ISTimedActionQueue.clear(character2)
+			--- If its a male animation, prevent them from playing this animation if female
+			if isFemale and availablePositions[i].gender == "Male" then
+				canUsePosition = false
+			end
+
+			if canUsePosition then
+				job = table.remove(availablePositions, i)
+				break
+			end
+		end
+
+		--- Create animation data
+		local action = ISAnimationAction:new(actor, job.stages[1].perform, job.stages[1].duration)
+		action.currentStage = 1
+		action.originalPosition = {x = actor:getX(), y = actor:getY(), z = actor:getZ()}
+		action.originalActor = actors[1]
+		action.position = {x = x, y = y, z = z}
+		action.facing = #actors > 1 and facing
+		action.waitingStarted = false
+		action.callbacks = callbacks
+		action.otherActions = #actors > 1 and otherActions
+
+		if disableCancel == true then
+			action.stopOnRun = false
+			action.stopOnAim = false
+		end
+
+		table.insert(otherActions, action)
 	end
 
-	ISTimedActionQueue.add(action1)
-	ISTimedActionQueue.add(action2)
+	--- Activate the animations simultaneously
+	for i = 1, #otherActions do
+		local otherAction = otherActions[i]
 
-	return action1, action2
+		if disableWalk then
+			ISTimedActionQueue.clear(otherAction.character)
+		end
+		
+		ISTimedActionQueue.add(otherAction)
+	end
+
+	return otherActions
 end
 
 function ISAnimationAction:isValid()
@@ -115,11 +116,23 @@ function ISAnimationAction:waitToStart()
 
 	local continueWaiting = self.character:shouldBeTurning()
 
-	if self.otherAction then
-		self.character:faceThisObject(self.otherAction.character)
+	--- Check if other characters are still turning towards the original actor
+	if self.otherActions then
+		local otherActionLength = #self.otherActions
 
-		if self.otherAction.waitingStarted == false or self.otherAction.character:shouldBeTurning() == true then
-			continueWaiting = true
+		if otherActionLength > 1 then
+			for i = 1, otherActionLength do
+				local otherAction = self.otherActions[i]
+
+				--- Wait till the other actors has finished their turning
+				if otherAction.character ~= self.character then
+					self.character:faceThisObject(otherAction.character)
+				
+					if(otherAction.waitingStarted == false or otherAction.character:shouldBeTurning() == true) then
+						continueWaiting = true
+					end
+				end
+			end
 		end
 	end
 
@@ -127,6 +140,11 @@ function ISAnimationAction:waitToStart()
 		if self.callbacks.WaitToStart then
 			self.callbacks.WaitToStart(self)
 		end
+	end
+
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.WaitToStart do
+		AnimationHandler.ActionEvents.WaitToStart[i](self)
 	end
 
 	self.waitingStarted = true
@@ -152,10 +170,18 @@ function ISAnimationAction:update()
 		end
 	end
 
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.Update do
+		AnimationHandler.ActionEvents.Update[i](self)
+	end
+
 	--- Check if the other actor somehow got a bugged action
-	if self.otherAction then
-		if not ISTimedActionQueue.hasAction(self.otherAction) then
-			self:forceStop()
+	if self.otherActions then
+		for i = 1, #self.otherActions do
+			local otherAction = self.otherActions[i]
+			if otherAction.character ~= self.character and not ISTimedActionQueue.hasAction(otherAction) then
+				self:forceStop()
+			end
 		end
 	end
 
@@ -166,8 +192,12 @@ end
 
 function ISAnimationAction:perform()
 	--- What happens once the timedaction completes?
-	if self.otherAction then
-		self.otherAction:forceComplete()
+	if self.otherActions then
+		for i = 1, #self.otherActions do
+			if self.otherActions[i].character ~= self.character then
+				self.otherActions[i]:forceComplete()
+			end
+		end
 	end
 
 	if self.originalPosition then
@@ -184,13 +214,22 @@ function ISAnimationAction:perform()
 		end
 	end
 
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.Perform do
+		AnimationHandler.ActionEvents.Perform[i](self)
+	end
+
 	ISBaseTimedAction.perform(self)
 end
 
 function ISAnimationAction:stop()
 	--- What happens if the actor cancels this action?
-	if self.otherAction then
-		self.otherAction:forceStop()
+	if self.otherActions then
+		for i = 1, #self.otherActions do
+			if self.otherActions[i].character ~= self.character then
+				self.otherActions[i]:forceStop()
+			end
+		end
 	end
 
 	self.character:getModData().zomboLewdSexScene = nil
@@ -199,6 +238,11 @@ function ISAnimationAction:stop()
 		if self.callbacks.Stop then
 			self.callbacks.Stop(self)
 		end
+	end
+
+	--- Activate ActionEvents
+	for i = 1, #AnimationHandler.ActionEvents.Stop do
+		AnimationHandler.ActionEvents.Stop[i](self)
 	end
 
 	ISBaseTimedAction.stop(self)

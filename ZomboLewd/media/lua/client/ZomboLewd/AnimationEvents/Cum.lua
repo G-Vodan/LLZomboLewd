@@ -1,4 +1,11 @@
-local IsoSprite = IsoSprite
+local IsoObject = IsoObject
+local ZombRandFloat = ZombRandFloat
+
+local cumSprites = {
+	"cum_floor_large_01",
+	"cum_floor_large_02",
+	"cum_floor_large_03"
+}
 
 local cumSprites = {
 	"cum_floor_large_01",
@@ -13,7 +20,7 @@ return function(action, parameter)
 	local offsety = ZombRandFloat(2, 3)
 
 	local square = getCell():getGridSquare(action.character:getX() + offsetx, action.character:getY() + offsety, action.character:getZ())
-	local cum = IsoObject.new(square, cumSprites[ZombRand(1, #cumSprites)])
+	local cum = IsoObject.new(square, cumSprites[ZombRand(1, #cumSprites + 1)])
 
 	cum:setCustomColor(1, 1, 1, 1)
 	square:AddTileObject(cum)

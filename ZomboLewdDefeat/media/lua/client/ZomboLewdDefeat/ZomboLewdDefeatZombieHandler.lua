@@ -17,6 +17,9 @@ local pairs = pairs
 
 local isoPlayersInAct = {}
 
+local tickUpdateRate = 5
+local lastTickUpdated = 0
+
 --- The zombie will choose between these three tables to strip
 -- After choosing it, it will try to strip the clothing from left to right
 ZombieHandler.CheckPartsInTheseOrder = {
@@ -67,7 +70,7 @@ local function checkForClothingDamage(zombie, target)
 									item:setCondition(item:getCondition() - conditionDamage)
 
 									if ZomboLewdDefeatConfig.ModOptions.options.box4 then
-										if ZombRand(0, 100) < ZomboLewdDefeatConfig.ModOptions.options.dropdown3 * 10 then
+										if ZombRand(0, 100) <= ZomboLewdDefeatConfig.ModOptions.options.dropdown3 * 10 then
 											local holeIndex = holeType[index]
 											local chosenHole = holeIndex[ZombRand(1, #holeIndex)]
 											local bloodPart = BloodBodyPartType.FromString(chosenHole)
@@ -105,82 +108,121 @@ local function attemptToDefeatTarget(zombie, target)
 	if target:getModData().zomboLewdSexScene then return end
 	if target:getModData().dontDefeat then return end
 
-	if not isoPlayersInAct[target] and zombie:DistTo(target) < 1 then
-		isoPlayersInAct[target] = {Ended = false, Tick = 0, TimeOut = 0}
+	if not isoPlayersInAct[target] then
+		local grabDistance = ZomboLewdDefeatConfig.ModOptions.options.dropdown4 * 0.2
 
-		if not checkForClothingDamage(zombie, target) then return end
+		if zombie:DistTo(target) < grabDistance then
+			isoPlayersInAct[target] = {Ended = false, Tick = 0, TimeOut = 0}
 
-		--- Time to grape em
-		local dummy = ZomboLewd.ZombieHandler:convertZombieToSurvivor(zombie)
-		dummy:getModData().dontDefeat = true
+			if not checkForClothingDamage(zombie, target) then return end
 
-		local intercourseList = ZomboLewd.Animations[ZomboLewdActType.Intercourse]
-		local animationList = ZomboLewd.AnimationUtils:getZLAnimations(intercourseList, isMainHeroFemale)
+			--- Time to grape em
+			local dummy = ZomboLewd.ZombieHandler:convertZombieToSurvivor(zombie)
+			dummy:getModData().dontDefeat = true
 
-		--- Choose random animation as a test
-		local index = ZombRand(1, #animationList)
-		local chosenAnimation = animationList[index]
+			if isMainHeroFemale and zombieIsFemale then
+				--- Lesbian
+				maleCount = 0
+				femaleCount = 2
+			elseif isMainHeroFemale == false and zombieIsFemale == false then
+				--- Gay
+				maleCount = 2
+				femaleCount = 0
+			else
+				--- Straight
+				maleCount = 1
+				femaleCount = 1
+			end
+		
+			--- Choose random animation as a test
+			local animationList = ZomboLewd.AnimationUtils:getAnimations(2, maleCount, femaleCount, {"Sex"})
+			local index = ZombRand(1, #animationList + 1)
+			local chosenAnimation = animationList[index]
 
-		local function cleanup()
-			isoPlayersInAct[target].Ended = true
+			local function cleanup()
+				isoPlayersInAct[target].Ended = true
 
-			--- Temporarily set 'em far away
-			dummy:setX(dummy:getX() + 9999999)
+				--- Temporarily set 'em far away
+				dummy:setX(dummy:getX() + 9999999)
 
-			local function _deleteDummy(tick)
-				if tick >= 100 then
-					ISTimedActionQueue.clear(target)
-					dummy:setInvincible(false)
+				local function _deleteDummy(tick)
+					if tick >= 100 then
+						ISTimedActionQueue.clear(target)
+						dummy:setInvincible(false)
+						dummy:setInvisible(false)
+						dummy:setGhostMode(false)
+						dummy:removeFromWorld()
+						dummy:removeFromSquare()
+						Events.OnTick.Remove(_deleteDummy)
+					end
+				end
+
+				Events.OnTick.Add(_deleteDummy)
+
+				zombie:setUseless(false)
+				zombie:setInvincible(false)
+				zombie:setInvisible(false)
+				zombie:setNoDamage(false)
+			end
+
+			ZomboLewd.AnimationHandler.Play(nil, {dummy, target}, chosenAnimation, true, true, {
+				Update = function(action)
+					isoPlayersInAct[target].TimeOut = 0
+
+					if target:HasTrait("Wimp") then
+						local bodyDamage = target:getBodyDamage()
+						local unhappiness = bodyDamage:getUnhappynessLevel()
+						local stats = target:getStats()
+
+						stats:setStress(stats:getStress() + 0.002)
+						bodyDamage:setUnhappynessLevel(unhappiness + 0.0075)
+					end
+
+					if target:HasTrait("Masochist") then
+						local bodyDamage = target:getBodyDamage()
+						local unhappiness = bodyDamage:getUnhappynessLevel()
+
+						bodyDamage:setUnhappynessLevel(unhappiness - 0.0075)
+					end
+				end,
+				WaitToStart = function(action)
+					zombie:setInvisible(true)
+					dummy:setGhostMode(true)
 					dummy:setInvisible(false)
-					dummy:setGhostMode(false)
-					dummy:removeFromWorld()
-					dummy:removeFromSquare()
-					Events.OnTick.Remove(_deleteDummy)
+
+					--- Fix bugged character if the dummy zombie despawns
+					if not action.TimeOut then
+						action.TimeOut = 0
+					end
+
+					action.TimeOut = action.TimeOut + 1
+
+					if action.TimeOut > 250 then
+						action:forceStop()
+					end
+				end,
+				Start = function(action)
+					zombie:setInvisible(true)
+					dummy:setInvisible(false)
+					isoPlayersInAct[dummy] = nil
+				end,
+				Stop = function(action)
+					cleanup()
+				end,
+				Perform = function(action)
+					if target:HasTrait("Necrophiliac") then
+						local bodyDamage = target:getBodyDamage()
+						local unhappiness = bodyDamage:getUnhappynessLevel()
+
+						bodyDamage:setUnhappynessLevel(unhappiness - 20)
+					end
+
+					cleanup()
 				end
-			end
+			})
 
-			Events.OnTick.Add(_deleteDummy)
-
-			zombie:setUseless(false)
-			zombie:setInvincible(false)
-			zombie:setInvisible(false)
-			zombie:setNoDamage(false)
+			isoPlayersInAct[dummy] = {Dummy = dummy, TimeOut = 0, Callback = cleanup}
 		end
-
-		ZomboLewd.AnimationHandler.PlayDuo(nil, dummy, target, chosenAnimation, true, true, {
-			Update = function(action)
-				isoPlayersInAct[target].TimeOut = 0
-			end,
-			WaitToStart = function(action)
-				zombie:setInvisible(true)
-				dummy:setGhostMode(true)
-				dummy:setInvisible(false)
-
-				--- Fix bugged character if the dummy zombie despawns
-				if not action.TimeOut then
-					action.TimeOut = 0
-				end
-
-				action.TimeOut = action.TimeOut + 1
-
-				if action.TimeOut > 250 then
-					action:forceStop()
-				end
-			end,
-			Start = function(action)
-				zombie:setInvisible(true)
-				dummy:setInvisible(false)
-				isoPlayersInAct[dummy] = nil
-			end,
-			Stop = function(action)
-				cleanup()
-			end,
-			Perform = function(action)
-				cleanup()
-			end
-		})
-
-		isoPlayersInAct[dummy] = {Dummy = dummy, TimeOut = 0, Callback = cleanup}
 	end
 end
 
@@ -197,29 +239,36 @@ local function OnZombieUpdate(zombie)
 end
 
 local function OnGrabImmunity(tick)
-	local cooldown = (ZomboLewdDefeatConfig.ModOptions.options.dropdown1 * 200) - 200
+	lastTickUpdated = lastTickUpdated + 1
 
-	for key, data in pairs(isoPlayersInAct) do
-		if data.Dummy then
-			--- Delete glitched animation dummies
-			data.TimeOut = data.TimeOut + 1
+	--- Have a minimum tick update time to increase performance, we don't need to spam the thing every frame
+	if lastTickUpdated >= tickUpdateRate then
+		lastTickUpdated = 0
 
-			if data.TimeOut > 100 then
-				data.Callback(data.Dummy)
-				isoPlayersInAct[key] = nil
-			end
-		else
-			if data.Ended then
-				data.Tick = data.Tick + 1
+		local cooldown = (ZomboLewdDefeatConfig.ModOptions.options.dropdown1 * 200) - 200
 
-				if data.Tick >= cooldown then
+		for key, data in pairs(isoPlayersInAct) do
+			if data.Dummy then
+				--- Delete glitched animation dummies
+				data.TimeOut = data.TimeOut + tickUpdateRate
+
+				if data.TimeOut > 100 then
+					data.Callback(data.Dummy)
 					isoPlayersInAct[key] = nil
 				end
 			else
-				data.TimeOut = data.TimeOut + 1
+				if data.Ended then
+					data.Tick = data.Tick + tickUpdateRate
 
-				if data.TimeOut > 1000 then
-					isoPlayersInAct[key] = nil
+					if data.Tick >= cooldown then
+						isoPlayersInAct[key] = nil
+					end
+				else
+					data.TimeOut = data.TimeOut + tickUpdateRate
+
+					if data.TimeOut > 1000 then
+						isoPlayersInAct[key] = nil
+					end
 				end
 			end
 		end

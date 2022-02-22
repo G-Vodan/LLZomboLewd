@@ -1,3 +1,3 @@
 return function(action, parameter)
-	--- Mutes the error
+	--- If your animation reaches this event, then play this code
 end
