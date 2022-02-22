@@ -1,27 +1,18 @@
 require "ZomboLewd/ZomboLewdConfig" --- Always include this at the top to forceload ZomboLewd prior to this animation file
 
 table.insert(ZomboLewdAnimationData, {
-	prefix = "ZomboLewd_",
-	id = "Blowjob",
-	tags = {"Blowjob", "Sex", "MF"},
+	prefix = "Masturbation_",
+	id = "FingerPussy",
+	tags = {"Masturbation", "Solo", "F"},
 	actors = {
 		{
 			gender = "Female",
 			stages = {
 				{
-					perform = "StandingBJF",
-					duration = 1000
+					perform = "FingerPussy",
+					duration = 300
 				}
 			}
 		},
-		{
-			gender = "Male",
-			stages = {
-				{
-					perform = "StandingBJM",
-					duration = 1000
-				}
-			}
-		}
 	}
 })
