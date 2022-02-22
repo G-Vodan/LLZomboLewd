@@ -1,0 +1,9 @@
+IGUI_RU = {
+	IGUI_Cooldown_Grabs = "Время восстановления между нападениями",
+	IGUI_Condition_Damage = "Повреждение одежды каждое нападение",
+	IGUI_Disable_Equipment_Top_Damage = "Включить повреждение верхней одежды",
+	IGUI_Disable_Equipment_Bottom_Damage = "Включить повреждение нижней одежды",
+	IGUI_Disable_Equipment_Full_Damage = "Включить повреждение костюмов",
+	IGUI_Disable_Equipment_Hole_Damage = "Зомби делают дыры в одежде",
+	IGUI_Hole_Damage_Value = "Шанс того что зомби продырявят одежду",
+}

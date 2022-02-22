@@ -1,0 +1,13 @@
+ContextMenu_EN = {
+	ContextMenu_Masturbate = "Masturbate",
+	ContextMenu_Masturbation_FingerPussy = "Se doigter",
+	ContextMenu_Masturbation_FingerAss = "Se doigter l'anus",
+	ContextMenu_Masturbation_FingerBoth = "Se doigter les deux",
+	ContextMenu_Masturbation_StrokeCock = "Se branler",
+
+	ContextMenu_Ask_For_Sex = "Proposer du sexe",
+
+	ContextMenu_Debug_Option = "Debug - ZomboLewd",
+	ContextMenu_Debug_Spawn_Comfort_Survivor = "Faire apparaître un survivant de confort",
+	ContextMenu_Debug_Spawn_Comfort_Survivor_Description = "Faire apparaître un survivant prête au sexe a côté de vous. Il sera toujours du genre opposé au votre.",
+}

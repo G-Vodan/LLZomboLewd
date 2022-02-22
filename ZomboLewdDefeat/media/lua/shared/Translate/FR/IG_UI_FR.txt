@@ -1,0 +1,9 @@
+IGUI_EN = {
+	IGUI_Cooldown_Grabs = "Temps d'attente avant d'être attrapé",
+	IGUI_Minimum_Scratch = "Resistance aux égratinure minimales pour être attrapé",
+
+	IGUI_Can_Damage_Belt = "Activer les dommages à la ceinture",
+	IGUI_Can_Damage_Pants = "Activer les dommages aux pantalons",
+	IGUI_Can_Damage_Tshirt = "Activer les dommages aux t-shirts",
+	IGUI_Can_Damage_Shoes = "Activer les dommages aux chaussures",
+}
