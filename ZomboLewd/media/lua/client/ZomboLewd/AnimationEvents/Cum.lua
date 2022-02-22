@@ -7,6 +7,12 @@ local cumSprites = {
 	"cum_floor_large_03"
 }
 
+local cumSprites = {
+	"cum_floor_large_01",
+	"cum_floor_large_02",
+	"cum_floor_large_03"
+}
+
 return function(action, parameter)
 	action.character:playSound("ZomboLewdCum")
 
